@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 2 — Simplification &amp; Alphabet Series</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F5EF;
+    --paper-alt:#ECEFE7;
+    --grid-line:#DCE2D6;
+    --ink:#182530;
+    --ink-soft:#54626C;
+    --ink-faint:#8B968E;
+    --rule:#CBD3C4;
+    --teal:#2F7A6F;
+    --teal-bg:#E3F0EB;
+    --amber:#C1832B;
+    --amber-bg:#FAF0DC;
+    --rose:#AE5044;
+    --rose-bg:#F5E7E2;
+    --violet:#6E5CA6;
+    --violet-bg:#ECE8F5;
+    --card:#FFFFFF;
+    --shadow: 0 1px 2px rgba(24,37,48,0.06), 0 6px 20px rgba(24,37,48,0.05);
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 27px, var(--grid-line) 27px, var(--grid-line) 28px),
+      repeating-linear-gradient(90deg, transparent, transparent 27px, var(--grid-line) 27px, var(--grid-line) 28px),
+      var(--paper);
+    background-attachment: fixed;
+    line-height:1.6;
+  }
+  a{color:inherit;}
+  h1,h2,h3,h4{font-family:'Fraunces', serif; font-weight:600; margin:0 0 0.4em 0; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* ===== Layout ===== */
+  .shell{
+    display:grid;
+    grid-template-columns: 280px 1fr;
+    max-width:1260px;
+    margin:0 auto;
+    min-height:100vh;
+  }
+  .sidebar{
+    position:sticky;
+    top:0;
+    align-self:start;
+    height:100vh;
+    overflow-y:auto;
+    padding:28px 16px 40px 28px;
+    border-right:1px solid var(--rule);
+  }
+  .brand .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    color:var(--teal);
+    background:var(--teal-bg);
+    padding:3px 8px;
+    border-radius:20px;
+    font-weight:600;
+  }
+  .brand-title{font-family:'Fraunces', serif; font-size:19px; font-weight:700; line-height:1.25; margin:10px 0 2px 0;}
+  .brand-sub{font-size:12.5px; color:var(--ink-soft); margin-bottom:24px;}
+
+  nav.toc{font-size:13.3px;}
+  nav.toc .group-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:20px 0 8px 0;
+  }
+  nav.toc .group-label:first-child{margin-top:0;}
+  nav.toc ul{list-style:none; margin:0; padding:0;}
+  nav.toc li a{
+    display:block;
+    padding:5px 10px;
+    margin:1px 0;
+    border-radius:8px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:background 0.15s, color 0.15s;
+    border-left:2px solid transparent;
+  }
+  nav.toc li a:hover{background:var(--paper-alt); color:var(--ink);}
+  nav.toc li a.active{
+    color:var(--teal);
+    background:var(--teal-bg);
+    border-left:2px solid var(--teal);
+    font-weight:600;
+  }
+  nav.toc li.sub a{padding-left:20px; font-size:12.4px;}
+
+  .mobile-bar{display:none;}
+  main{padding:44px 56px 100px 56px; min-width:0;}
+
+  /* ===== Hero ===== */
+  .hero{padding: 10px 0 40px 0; margin-bottom:36px; border-bottom:1px solid var(--rule);}
+  .hero-eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--amber); margin-bottom:14px;
+  }
+  .hero h1{font-size:clamp(28px, 3.6vw, 42px); line-height:1.1; max-width:740px;}
+  .hero p.lede{font-size:16px; color:var(--ink-soft); max-width:580px; margin-top:14px;}
+  .hero-demos{display:flex; flex-direction:column; gap:16px; margin-top:30px;}
+  .hero-caption{font-size:12.5px; color:var(--ink-faint); margin-top:8px; font-family:'IBM Plex Mono', monospace;}
+
+  /* ===== Chain component (shared signature) ===== */
+  .chain{display:flex; align-items:center; gap:0; flex-wrap:wrap; margin:18px 0; overflow-x:auto; padding-bottom:2px;}
+  .tile{
+    font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:17px;
+    min-width:44px; height:44px; padding:0 10px; display:flex; align-items:center; justify-content:center;
+    background:var(--card); border:1.5px solid var(--ink); border-radius:10px;
+    box-shadow: 2px 2px 0 var(--ink); flex-shrink:0;
+  }
+  .tile.sm{min-width:36px; height:36px; font-size:14px; border-radius:8px; box-shadow:1.5px 1.5px 0 var(--ink);}
+  .tile.answer{background:var(--teal); border-color:var(--teal); color:#fff; box-shadow: 2px 2px 0 #1c5148;}
+  .tile.letter{background:var(--violet-bg); border-color:var(--violet); color:var(--violet); box-shadow:2px 2px 0 var(--violet);}
+  .tile.letter.answer{background:var(--violet); border-color:var(--violet); color:#fff; box-shadow:2px 2px 0 #453a70;}
+  .tile.query{color:var(--rose); border-style:dashed; box-shadow:none;}
+  .op{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; font-weight:600; color:var(--amber);
+    background:var(--amber-bg); border-radius:20px; padding:4px 9px; margin:0 6px; white-space:nowrap; flex-shrink:0;
+  }
+  .arrow{color:var(--ink-faint); margin:0 2px; font-size:14px; flex-shrink:0;}
+
+  .diff-row{
+    display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--ink-soft); margin:6px 0 18px 0;
+  }
+  .diff-row .d{background:var(--paper-alt); border:1px solid var(--rule); border-radius:8px; padding:3px 9px;}
+  .diff-row .d.next{background:var(--amber-bg); color:var(--amber); border-color:transparent; font-weight:600;}
+
+  /* ===== Section scaffolding ===== */
+  section.block{margin-bottom:52px; scroll-margin-top:24px;}
+  .section-head{margin-bottom:22px;}
+  .part-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink-faint); margin-bottom:8px;
+  }
+  h2.title{font-size:25px;}
+  h3.pattern-title{font-size:18px; display:flex; align-items:baseline; gap:10px;}
+  h3.pattern-title .idx{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--violet); background:var(--violet-bg);
+    border-radius:6px; padding:2px 7px; font-weight:600;
+  }
+  h3.pattern-title.aptitude .idx{color:var(--teal); background:var(--teal-bg);}
+
+  .card{background:var(--card); border:1px solid var(--rule); border-radius:var(--radius); padding:22px 26px; box-shadow:var(--shadow); margin-bottom:16px;}
+  p{margin:0 0 12px 0;}
+  p:last-child{margin-bottom:0;}
+
+  .callout{
+    border-left:3px solid var(--rose); background:var(--rose-bg); border-radius:0 10px 10px 0;
+    padding:14px 18px; font-size:14.5px; color:#5c2f26; margin:16px 0;
+  }
+  .callout::before{
+    content:"Teaching note"; display:block; font-family:'IBM Plex Mono', monospace; font-size:10.5px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--rose); margin-bottom:5px; opacity:0.85;
+  }
+  .answer-line{font-family:'IBM Plex Mono', monospace; font-size:15px; color:var(--teal); font-weight:600; margin-top:2px;}
+  .answer-line.violet{color:var(--violet);}
+
+  /* ===== BODMAS priority ladder ===== */
+  .ladder{display:flex; flex-direction:column; gap:0; margin:18px 0; border:1px solid var(--rule); border-radius:12px; overflow:hidden;}
+  .ladder .step{display:grid; grid-template-columns:70px 130px 1fr; align-items:center; padding:13px 18px; border-bottom:1px solid var(--rule); background:var(--card);}
+  .ladder .step:last-child{border-bottom:none;}
+  .ladder .step .letter{
+    font-family:'IBM Plex Mono', monospace; font-weight:700; font-size:20px; color:var(--teal);
+    width:38px; height:38px; border-radius:10px; background:var(--teal-bg); display:flex; align-items:center; justify-content:center;
+  }
+  .ladder .step .name{font-weight:600; font-size:14.5px;}
+  .ladder .step .desc{font-size:13.3px; color:var(--ink-soft);}
+  @media (max-width:640px){.ladder .step{grid-template-columns:44px 1fr; row-gap:4px;} .ladder .step .desc{grid-column:1/-1; padding-left:0;}}
+
+  /* ===== Bracket types ===== */
+  .bracket-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:14px; margin:10px 0 18px 0;}
+  .bracket-card{background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:16px 18px; text-align:center; box-shadow:var(--shadow);}
+  .bracket-card .glyph{font-family:'IBM Plex Mono', monospace; font-size:28px; font-weight:600; color:var(--amber);}
+  .bracket-card .name{font-size:13px; color:var(--ink-soft); margin-top:6px;}
+
+  /* ===== Reference grids (squares / roots) ===== */
+  .refgrid{display:grid; grid-template-columns:repeat(auto-fill, minmax(84px,1fr)); gap:8px; margin-top:10px;}
+  .refcell{
+    background:var(--paper-alt); border:1px solid var(--rule); border-radius:8px; padding:8px 6px; text-align:center;
+    font-family:'IBM Plex Mono', monospace; font-size:13px;
+  }
+  .refcell .base{color:var(--ink-soft); font-size:11.5px;}
+  .refcell .val{color:var(--teal); font-weight:700; font-size:14.5px;}
+
+  /* ===== Percentage table ===== */
+  table.pct-table{width:100%; border-collapse:collapse; font-family:'IBM Plex Mono', monospace; font-size:13.8px; margin-top:8px;}
+  table.pct-table th{text-align:left; font-family:'Inter',sans-serif; font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); padding:8px 10px; border-bottom:1px solid var(--rule);}
+  table.pct-table td{padding:9px 10px; border-bottom:1px solid var(--rule); color:var(--ink);}
+  table.pct-table tr:last-child td{border-bottom:none;}
+
+  /* ===== Shortcut cards ===== */
+  .shortcut-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:14px;}
+  .shortcut-card{background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow);}
+  .shortcut-card .pct{font-family:'IBM Plex Mono', monospace; font-weight:700; color:var(--amber); font-size:15px; margin-bottom:4px;}
+  .shortcut-card .rule{font-size:13.3px; color:var(--ink-soft); margin-bottom:8px;}
+  .shortcut-card .ex{font-family:'IBM Plex Mono', monospace; font-size:13.3px; background:var(--paper-alt); border-radius:8px; padding:7px 10px;}
+
+  /* ===== A-Z strip ===== */
+  .az-strip{display:flex; flex-wrap:wrap; gap:6px; margin:16px 0;}
+  .az-cell{
+    width:52px; height:52px; border-radius:9px; border:1.5px solid var(--rule); background:var(--card);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace;
+  }
+  .az-cell .l{font-size:16px; font-weight:700; color:var(--violet);}
+  .az-cell .n{font-size:10.5px; color:var(--ink-faint);}
+
+  /* ===== Q&A quick list ===== */
+  .qa-list{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:10px; margin-top:8px;}
+  .qa-item{background:var(--paper-alt); border-radius:10px; padding:11px 14px; font-size:13.8px; display:flex; justify-content:space-between; gap:10px; align-items:center;}
+  .qa-item .a{font-family:'IBM Plex Mono', monospace; font-weight:700; color:var(--teal);}
+
+  /* ===== Practice question cards ===== */
+  .qgroup-label{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--ink-faint); margin:24px 0 10px 0;
+  }
+  .qgroup-label:first-child{margin-top:0;}
+  .qgrid{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:12px;}
+  details.qcard{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow); overflow:hidden;}
+  details.qcard summary{list-style:none; cursor:pointer; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  details.qcard summary::-webkit-details-marker{display:none;}
+  .qnum{font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--ink-faint); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:4px;}
+  .qtext{font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:600;}
+  .chev{flex-shrink:0; width:20px; height:20px; border-radius:50%; background:var(--paper-alt); display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--ink-soft); transition:transform 0.2s;}
+  details.qcard[open] .chev{transform:rotate(180deg); background:var(--teal-bg); color:var(--teal);}
+  .qanswer{padding:0 16px 14px 16px; border-top:1px dashed var(--rule); margin-top:2px; padding-top:10px;}
+  .qanswer .a-value{font-family:'IBM Plex Mono', monospace; color:var(--teal); font-weight:700; font-size:15px;}
+
+  footer{border-top:1px solid var(--rule); padding:28px 56px 40px 56px; font-size:12.8px; color:var(--ink-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr;}
+    .sidebar{position:relative; height:auto; border-right:none; border-bottom:1px solid var(--rule); padding:18px 20px; display:none;}
+    .sidebar.open{display:block;}
+    .mobile-bar{display:flex; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--rule); position:sticky; top:0; background:var(--paper); z-index:10;}
+    .mobile-bar .brand-title{font-size:15px; margin:0;}
+    .mobile-bar button{font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:600; background:var(--ink); color:#fff; border:none; border-radius:20px; padding:8px 14px; cursor:pointer;}
+    main{padding:32px 20px 80px 20px;}
+    footer{padding:24px 20px 40px 20px; flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<div class="mobile-bar">
+  <p class="brand-title">Week 2 · Simplification &amp; Alphabet Series</p>
+  <button id="navToggle">Contents</button>
+</div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><span class="eyebrow">WEEK 2</span></div>
+    <p class="brand-title">Simplification &amp; Alphabet Series</p>
+    <p class="brand-sub">Placement Aptitude &amp; Reasoning · B.Tech CSE (AI)</p>
+
+    <nav class="toc">
+      <p class="group-label">Part A · Aptitude — Simplification</p>
+      <ul>
+        <li><a href="#what-is">What is simplification?</a></li>
+        <li><a href="#bodmas">BODMAS rule</a></li>
+        <li><a href="#brackets">Types of brackets</a></li>
+        <li><a href="#bodmas-ex">Basic BODMAS examples</a></li>
+        <li><a href="#bracket-ex">Bracket problems</a></li>
+        <li><a href="#multi-ops">Multiple operations</a></li>
+        <li><a href="#orders">Orders / powers</a></li>
+        <li><a href="#fractions">Fractions</a></li>
+        <li><a href="#decimals">Decimals</a></li>
+        <li><a href="#percentage">Percentage</a></li>
+        <li><a href="#roots">Square roots</a></li>
+        <li><a href="#squares">Important squares</a></li>
+        <li><a href="#shortcuts">Shortcuts</a></li>
+        <li><a href="#simp-practice">Practice — solve (10 Qs)</a></li>
+        <li><a href="#simp-student">Student practice (30 Qs)</a></li>
+      </ul>
+      <p class="group-label">Part B · Reasoning — Alphabet Series</p>
+      <ul>
+        <li><a href="#az-positions">Alphabet positions</a></li>
+        <li><a href="#reverse-az">Reverse alphabet</a></li>
+        <li><a href="#az-patterns">Patterns 1–16</a></li>
+        <li><a href="#az-practice">Practice (30 Qs)</a></li>
+      </ul>
+      <p class="group-label">Final Test</p>
+      <ul>
+        <li><a href="#final-test">Sections A &amp; B (20 Qs)</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <p class="hero-eyebrow">Placement Prep — Week 2</p>
+      <h1>An order for solving. A position for every letter.</h1>
+      <p class="lede">Simplification is about following BODMAS without skipping steps. Alphabet series is about knowing where every letter sits — forward and backward — so a pattern jumps out immediately.</p>
+      <div class="hero-demos">
+        <div class="chain">
+          <div class="tile">10</div><span class="op">+</span>
+          <div class="tile">5</div><span class="op">×2 first</span>
+          <div class="tile">10</div><span class="arrow">→</span>
+          <div class="tile answer">20</div>
+        </div>
+        <div class="chain">
+          <div class="tile letter">A</div><span class="op">+2</span>
+          <div class="tile letter">C</div><span class="op">+2</span>
+          <div class="tile letter">E</div><span class="op">+2</span>
+          <div class="tile letter">G</div><span class="op">+2</span>
+          <div class="tile letter answer">I</div>
+        </div>
+      </div>
+      <p class="hero-caption">// 10 + 5×2 = 20, not 30 — multiplication runs first</p>
+    </section>
+
+    <!-- ================= PART A ================= -->
+    <section class="block" id="what-is">
+      <div class="section-head">
+        <p class="part-tag">Part A — Aptitude</p>
+        <h2 class="title">Simplification</h2>
+      </div>
+      <div class="card">
+        <p>Simplification means solving a mathematical expression by following the correct order of operations to reach the simplest possible answer.</p>
+        <div class="chain">
+          <div class="tile">10</div><span class="op">+</span>
+          <div class="tile">5</div><span class="op">×</span>
+          <div class="tile">2</div><span class="arrow">=</span>
+          <div class="tile answer">20</div>
+        </div>
+        <p class="answer-line">Not 30 — multiplication must be performed before addition.</p>
+      </div>
+    </section>
+
+    <section class="block" id="bodmas">
+      <h3 class="pattern-title aptitude"><span class="idx">RULE</span>BODMAS</h3>
+      <div class="card">
+        <p>The most important concept in simplification. Work through the expression in this order:</p>
+        <div class="ladder">
+          <div class="step"><span class="letter">B</span><span class="name">Brackets</span><span class="desc">( ), { }, [ ] — innermost first</span></div>
+          <div class="step"><span class="letter">O</span><span class="name">Orders</span><span class="desc">Powers, roots</span></div>
+          <div class="step"><span class="letter">D</span><span class="name">Division</span><span class="desc">Same priority as Multiplication — left to right</span></div>
+          <div class="step"><span class="letter">M</span><span class="name">Multiplication</span><span class="desc">Same priority as Division — left to right</span></div>
+          <div class="step"><span class="letter">A</span><span class="name">Addition</span><span class="desc">Same priority as Subtraction — left to right</span></div>
+          <div class="step"><span class="letter">S</span><span class="name">Subtraction</span><span class="desc">Same priority as Addition — left to right</span></div>
+        </div>
+        <div class="callout">Division and multiplication share priority — so do addition and subtraction. Students often wrongly assume multiplication always comes before division; both are correct only when solved strictly left to right.</div>
+      </div>
+    </section>
+
+    <section class="block" id="brackets">
+      <h3 class="pattern-title aptitude"><span class="idx">B</span>Types of brackets</h3>
+      <div class="card">
+        <div class="bracket-grid">
+          <div class="bracket-card"><div class="glyph">( )</div><div class="name">Round bracket</div></div>
+          <div class="bracket-card"><div class="glyph">{ }</div><div class="name">Curly bracket</div></div>
+          <div class="bracket-card"><div class="glyph">[ ]</div><div class="name">Square bracket</div></div>
+        </div>
+        <p>Solve from the innermost bracket outward:</p>
+        <p class="mono" style="font-size:15px;">[ 10 + { 5 + (2 × 3) } ]&nbsp; → &nbsp;[ 10 + { 5 + 6 } ]&nbsp; → &nbsp;[ 10 + 11 ]&nbsp; → &nbsp;<b style="color:var(--teal)">21</b></p>
+      </div>
+    </section>
+
+    <section class="block" id="bodmas-ex">
+      <h3 class="pattern-title aptitude"><span class="idx">EX</span>Basic BODMAS examples</h3>
+      <div class="card">
+        <p><strong>Example 1</strong></p>
+        <div class="chain">
+          <div class="tile">10</div><span class="op">+</span>
+          <div class="tile">5×2</div><span class="arrow">→</span>
+          <div class="tile">10</div><span class="arrow">=</span>
+          <div class="tile answer">20</div>
+        </div>
+        <p><strong>Example 2</strong></p>
+        <div class="chain">
+          <div class="tile">20</div><span class="op">−</span>
+          <div class="tile">8÷2</div><span class="arrow">→</span>
+          <div class="tile">4</div><span class="arrow">=</span>
+          <div class="tile answer">16</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="bracket-ex">
+      <h3 class="pattern-title aptitude"><span class="idx">EX</span>Bracket problems</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile">(10+5)</div><span class="op">×</span>
+          <div class="tile">2</div><span class="arrow">→</span>
+          <div class="tile">15×2</div><span class="arrow">=</span>
+          <div class="tile answer">30</div>
+        </div>
+        <div class="chain">
+          <div class="tile">20</div><span class="op">−</span>
+          <div class="tile">(5+3)</div><span class="arrow">→</span>
+          <div class="tile">20−8</div><span class="arrow">=</span>
+          <div class="tile answer">12</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="multi-ops">
+      <h3 class="pattern-title aptitude"><span class="idx">EX</span>Multiple operations</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile">20</div><span class="op">+</span>
+          <div class="tile">10÷2</div><span class="arrow">→5</span>
+          <div class="tile">5×3</div><span class="arrow">→15</span>
+          <div class="tile">20+15</div><span class="arrow">=</span>
+          <div class="tile answer">35</div>
+        </div>
+        <div class="callout">Don't solve 2×3 first just because multiplication appears later in the expression — division and multiplication are handled strictly left to right, in the order they appear.</div>
+      </div>
+    </section>
+
+    <section class="block" id="orders">
+      <h3 class="pattern-title aptitude"><span class="idx">O</span>Orders / powers</h3>
+      <div class="card">
+        <p>"Orders" includes powers and roots.</p>
+        <div class="chain">
+          <div class="tile">2²</div><span class="arrow">→4</span>
+          <div class="tile">+5</div><span class="arrow">=</span>
+          <div class="tile answer">9</div>
+        </div>
+        <div class="chain">
+          <div class="tile">3²</div><span class="arrow">→9</span>
+          <div class="tile">+</div>
+          <div class="tile">4×2</div><span class="arrow">→8</span>
+          <div class="tile">9+8</div><span class="arrow">=</span>
+          <div class="tile answer">17</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="fractions">
+      <h3 class="pattern-title aptitude"><span class="idx">FR</span>Fractions</h3>
+      <div class="card">
+        <p>Very common in aptitude exams — be comfortable adding, subtracting, multiplying and dividing them.</p>
+        <div class="work-panel" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:8px;">
+          <div class="work-col" style="background:var(--paper-alt); border-radius:10px; padding:14px 16px; font-family:'IBM Plex Mono',monospace; font-size:13.8px;">
+            <p class="label" style="font-family:'Inter',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-faint); margin-bottom:6px; font-weight:600;">Addition</p>
+            1/2 + 1/3 → LCM=6 → 3/6+2/6 = <span style="color:var(--teal); font-weight:700;">5/6</span>
+          </div>
+          <div class="work-col" style="background:var(--paper-alt); border-radius:10px; padding:14px 16px; font-family:'IBM Plex Mono',monospace; font-size:13.8px;">
+            <p class="label" style="font-family:'Inter',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-faint); margin-bottom:6px; font-weight:600;">Subtraction</p>
+            3/4 − 1/4 = 2/4 = <span style="color:var(--teal); font-weight:700;">1/2</span>
+          </div>
+          <div class="work-col" style="background:var(--paper-alt); border-radius:10px; padding:14px 16px; font-family:'IBM Plex Mono',monospace; font-size:13.8px;">
+            <p class="label" style="font-family:'Inter',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-faint); margin-bottom:6px; font-weight:600;">Multiplication</p>
+            2/3 × 3/5 = 6/15 = <span style="color:var(--teal); font-weight:700;">2/5</span>
+          </div>
+          <div class="work-col" style="background:var(--paper-alt); border-radius:10px; padding:14px 16px; font-family:'IBM Plex Mono',monospace; font-size:13.8px;">
+            <p class="label" style="font-family:'Inter',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-faint); margin-bottom:6px; font-weight:600;">Division</p>
+            2/3 ÷ 4/5 → invert &amp; multiply → 2/3×5/4 = 10/12 = <span style="color:var(--teal); font-weight:700;">5/6</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="decimals">
+      <h3 class="pattern-title aptitude"><span class="idx">DE</span>Decimals</h3>
+      <div class="card">
+        <p class="mono" style="font-size:15px; white-space:pre;">  2.50
++ 1.25
+------
+  3.75</p>
+        <p class="answer-line">2.5 + 1.25 = 3.75</p>
+        <p class="answer-line" style="margin-top:10px;">5.5 × 2 = 11</p>
+      </div>
+    </section>
+
+    <section class="block" id="percentage">
+      <h3 class="pattern-title aptitude"><span class="idx">%</span>Percentage in simplification</h3>
+      <div class="card">
+        <table class="pct-table">
+          <tr><th>Percentage</th><th>Fraction</th><th>Decimal</th></tr>
+          <tr><td>10%</td><td>1/10</td><td>0.10</td></tr>
+          <tr><td>20%</td><td>1/5</td><td>0.20</td></tr>
+          <tr><td>25%</td><td>1/4</td><td>0.25</td></tr>
+          <tr><td>50%</td><td>1/2</td><td>0.50</td></tr>
+          <tr><td>75%</td><td>3/4</td><td>0.75</td></tr>
+          <tr><td>100%</td><td>1</td><td>1</td></tr>
+        </table>
+        <p class="answer-line" style="margin-top:14px;">25% of 200 = 200/4 = 50</p>
+      </div>
+    </section>
+
+    <section class="block" id="roots">
+      <h3 class="pattern-title aptitude"><span class="idx">√</span>Square roots</h3>
+      <div class="card">
+        <p>Students should memorize these — it significantly improves speed.</p>
+        <div class="refgrid" id="rootsGrid"></div>
+      </div>
+    </section>
+
+    <section class="block" id="squares">
+      <h3 class="pattern-title aptitude"><span class="idx">SQ</span>Important squares — 1² to 20²</h3>
+      <div class="card">
+        <div class="refgrid" id="squaresGrid"></div>
+      </div>
+    </section>
+
+    <section class="block" id="shortcuts">
+      <h3 class="pattern-title aptitude"><span class="idx">FAST</span>Simplification shortcuts</h3>
+      <div class="shortcut-grid">
+        <div class="shortcut-card"><div class="pct">10%</div><div class="rule">Move the decimal one place left.</div><div class="ex">10% of 450 → 45</div></div>
+        <div class="shortcut-card"><div class="pct">5%</div><div class="rule">Half of 10%.</div><div class="ex">5% of 800 → 10%=80 → 40</div></div>
+        <div class="shortcut-card"><div class="pct">25%</div><div class="rule">Equal to 1/4.</div><div class="ex">25% of 600 → 600/4 = 150</div></div>
+        <div class="shortcut-card"><div class="pct">50%</div><div class="rule">Equal to half.</div><div class="ex">50% of 760 → 760/2 = 380</div></div>
+        <div class="shortcut-card"><div class="pct">75%</div><div class="rule">Equal to 3/4.</div><div class="ex">75% of 400 → 400×3/4 = 300</div></div>
+      </div>
+    </section>
+
+    <section class="block" id="simp-practice">
+      <div class="section-head">
+        <p class="part-tag">Part A — Practice</p>
+        <h2 class="title">Practice — Solve (10 Qs)</h2>
+      </div>
+      <div class="qgrid" id="simpPracticeGrid"></div>
+    </section>
+
+    <section class="block" id="simp-student">
+      <div class="section-head">
+        <p class="part-tag">Part A — Student Practice</p>
+        <h2 class="title">Easy · Medium · Difficult (30 Qs)</h2>
+        <p style="color:var(--ink-soft); font-size:14px; margin-top:6px;">Given without worked steps in class — tap to check the final answer.</p>
+      </div>
+      <p class="qgroup-label">Easy</p>
+      <div class="qgrid" id="simpEasyGrid"></div>
+      <p class="qgroup-label">Medium</p>
+      <div class="qgrid" id="simpMediumGrid"></div>
+      <p class="qgroup-label">Difficult</p>
+      <div class="qgrid" id="simpDifficultGrid"></div>
+    </section>
+
+    <!-- ================= PART B ================= -->
+    <section class="block" id="az-positions">
+      <div class="section-head">
+        <p class="part-tag">Part B — Reasoning</p>
+        <h2 class="title">Alphabet Series</h2>
+      </div>
+      <div class="card">
+        <p>Alphabet series questions test the ability to spot patterns in letters. The key is knowing every letter's position instantly.</p>
+        <div class="az-strip" id="azForward"></div>
+      </div>
+    </section>
+
+    <section class="block" id="reverse-az">
+      <h3 class="pattern-title"><span class="idx">REV</span>Reverse alphabet</h3>
+      <div class="card">
+        <div class="az-strip" id="azReverse"></div>
+        <p>Useful relationship:</p>
+        <div class="chain">
+          <div class="tile letter">C</div><span class="arrow">position 3 →</span>
+          <div class="tile">27−3</div><span class="arrow">=</span>
+          <div class="tile answer">24</div>
+        </div>
+        <p class="answer-line violet">Position(reverse) = 27 − Position(forward)</p>
+      </div>
+    </section>
+
+    <section class="block" id="az-patterns">
+      <div class="section-head" style="margin-bottom:6px;">
+        <h2 class="title" style="font-size:22px;">Patterns 1–16</h2>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">3</span>Simple forward series</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile letter">A</div><span class="op">+1</span>
+          <div class="tile letter">B</div><span class="op">+1</span>
+          <div class="tile letter">C</div><span class="op">+1</span>
+          <div class="tile letter">D</div><span class="op">+1</span>
+          <div class="tile letter answer">E</div>
+        </div>
+        <div class="chain">
+          <div class="tile letter">A</div><span class="op">+2</span>
+          <div class="tile letter">C</div><span class="op">+2</span>
+          <div class="tile letter">E</div><span class="op">+2</span>
+          <div class="tile letter">G</div><span class="op">+2</span>
+          <div class="tile letter answer">I</div>
+        </div>
+        <p class="hero-caption" style="margin-top:2px;">// positions 1, 3, 5, 7 → next = 9 = I</p>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">4</span>Skip one letter</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile letter">A</div><div class="tile letter">C</div><div class="tile letter">E</div>
+          <div class="tile letter">G</div><div class="tile letter">I</div><span class="arrow">→</span>
+          <div class="tile letter answer">K</div>
+        </div>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">5</span>Skip two letters</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile letter">A</div><span class="op">+3</span>
+          <div class="tile letter">D</div><span class="op">+3</span>
+          <div class="tile letter">G</div><span class="op">+3</span>
+          <div class="tile letter">J</div><span class="op">+3</span>
+          <div class="tile letter answer">M</div>
+        </div>
+        <p class="hero-caption" style="margin-top:2px;">// positions 1, 4, 7, 10 → next = 13 = M</p>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">6</span>Backward series</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile letter">Z</div><span class="op">−1</span>
+          <div class="tile letter">Y</div><span class="op">−1</span>
+          <div class="tile letter">X</div><span class="op">−1</span>
+          <div class="tile letter">W</div><span class="op">−1</span>
+          <div class="tile letter answer">V</div>
+        </div>
+        <div class="chain">
+          <div class="tile letter">Z</div><span class="op">−2</span>
+          <div class="tile letter">X</div><span class="op">−2</span>
+          <div class="tile letter">V</div><span class="op">−2</span>
+          <div class="tile letter">T</div><span class="op">−2</span>
+          <div class="tile letter answer">R</div>
+        </div>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">7</span>Increasing jump</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile letter">A</div>
+          <div class="tile letter">B</div>
+          <div class="tile letter">D</div>
+          <div class="tile letter">G</div>
+          <div class="tile letter">K</div>
+          <div class="tile letter query">?</div>
+        </div>
+        <div class="diff-row">
+          <span class="d">A→B = +1</span><span class="d">B→D = +2</span><span class="d">D→G = +3</span><span class="d">G→K = +4</span><span class="d next">next = +5</span>
+        </div>
+        <p class="answer-line violet">K + 5 = P</p>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">8</span>Decreasing jump</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile letter">Z</div>
+          <div class="tile letter">Y</div>
+          <div class="tile letter">W</div>
+          <div class="tile letter">T</div>
+          <div class="tile letter">P</div>
+          <div class="tile letter query">?</div>
+        </div>
+        <div class="diff-row">
+          <span class="d">−1</span><span class="d">−2</span><span class="d">−3</span><span class="d">−4</span><span class="d next">next = −5</span>
+        </div>
+        <p class="answer-line violet">P − 5 = K</p>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">9</span>Alternating alphabet series</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile letter">A</div><div class="tile letter">Z</div><div class="tile letter">B</div>
+          <div class="tile letter">Y</div><div class="tile letter">C</div><div class="tile letter">X</div>
+          <div class="tile letter query">?</div>
+        </div>
+        <div class="work-panel" style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <div class="work-col" style="background:var(--paper-alt); border-radius:10px; padding:12px 14px; font-family:'IBM Plex Mono',monospace; font-size:13.5px;">Odd positions: A, B, C, <b style="color:var(--violet)">D</b></div>
+          <div class="work-col" style="background:var(--paper-alt); border-radius:10px; padding:12px 14px; font-family:'IBM Plex Mono',monospace; font-size:13.5px;">Even positions: Z, Y, X</div>
+        </div>
+        <p class="answer-line violet" style="margin-top:12px;">Answer = D</p>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">10</span>Another alternating example</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile letter">A</div><div class="tile letter">C</div><div class="tile letter">B</div>
+          <div class="tile letter">D</div><div class="tile letter">C</div><div class="tile letter">E</div>
+          <div class="tile letter query">?</div>
+        </div>
+        <p class="answer-line violet">Odd: A, B, C, <b>D</b> · Even: C, D, E → Answer = D</p>
+        <div class="callout">If the normal pattern doesn't work, separate the odd‑position and even‑position letters and solve each chain independently.</div>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">11</span>Alphabet + number pattern</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile letter">A1</div><div class="tile letter">B2</div><div class="tile letter">C3</div>
+          <div class="tile letter">D4</div><span class="arrow">→</span>
+          <div class="tile letter answer">E5</div>
+        </div>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">12</span>Reverse pattern</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile letter">Z1</div><div class="tile letter">Y2</div><div class="tile letter">X3</div>
+          <div class="tile letter">W4</div><span class="arrow">→</span>
+          <div class="tile letter answer">V5</div>
+        </div>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">13</span>Finding the letter</h3>
+      <div class="card">
+        <div class="qa-list">
+          <div class="qa-item"><span>8th letter?</span><span class="a">H</span></div>
+          <div class="qa-item"><span>20th letter?</span><span class="a">T</span></div>
+          <div class="qa-item"><span>25th letter?</span><span class="a">Y</span></div>
+        </div>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">14</span>Finding the position</h3>
+      <div class="card">
+        <div class="qa-list">
+          <div class="qa-item"><span>Position of M?</span><span class="a">13</span></div>
+          <div class="qa-item"><span>Position of R?</span><span class="a">18</span></div>
+          <div class="qa-item"><span>Position of W?</span><span class="a">23</span></div>
+        </div>
+      </div>
+
+      <h3 class="pattern-title"><span class="idx">15–16</span>Letters between two letters</h3>
+      <div class="card">
+        <p>How many letters are between C and H?</p>
+        <div class="chain">
+          <div class="tile letter sm">C</div><div class="tile letter sm">D</div><div class="tile letter sm">E</div>
+          <div class="tile letter sm">F</div><div class="tile letter sm">G</div><div class="tile letter sm">H</div>
+        </div>
+        <p class="answer-line violet">D, E, F, G between them → Answer = 4</p>
+        <div class="callout" style="border-left-color:var(--violet); background:var(--violet-bg); color:#3a305c;">
+          Shortcut: |Position₁ − Position₂| − 1. For F and M: F=6, M=13 → 13−6−1 = 6.
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="az-practice">
+      <div class="section-head">
+        <p class="part-tag">Part B — Practice</p>
+        <h2 class="title">Alphabet Series Practice (30 Qs)</h2>
+      </div>
+      <p class="qgroup-label">Easy</p>
+      <div class="qgrid" id="azEasyGrid"></div>
+      <p class="qgroup-label">Medium</p>
+      <div class="qgrid" id="azMediumGrid"></div>
+      <p class="qgroup-label">Advanced</p>
+      <div class="qgrid" id="azAdvancedGrid"></div>
+    </section>
+
+    <!-- ================= FINAL TEST ================= -->
+    <section class="block" id="final-test">
+      <div class="section-head">
+        <p class="part-tag">Final Test</p>
+        <h2 class="title">Section A &amp; B (20 Qs)</h2>
+      </div>
+      <p class="qgroup-label">Section A — Simplification</p>
+      <div class="qgrid" id="finalAGrid"></div>
+      <p class="qgroup-label">Section B — Alphabet Series</p>
+      <div class="qgrid" id="finalBGrid"></div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>Week 2 — Simplification &amp; Alphabet Series · Placement Aptitude &amp; Reasoning</span>
+  <span>B.Tech CSE (Artificial Intelligence)</span>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const sidebar = document.getElementById('sidebar');
+  if(navToggle){
+    navToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      navToggle.textContent = sidebar.classList.contains('open') ? 'Close' : 'Contents';
+    });
+    document.querySelectorAll('#sidebar a').forEach(a=>{
+      a.addEventListener('click', ()=>{ sidebar.classList.remove('open'); navToggle.textContent = 'Contents'; });
+    });
+  }
+
+  const links = document.querySelectorAll('nav.toc a');
+  const targets = Array.from(links).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id = '#' + entry.target.id;
+        links.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+  targets.forEach(t => observer.observe(t));
+
+  function qcard(container, num, text, answer){
+    const d = document.createElement('details');
+    d.className = 'qcard';
+    d.innerHTML = `
+      <summary>
+        <div><div class="qnum">Q${num}</div><div class="qtext">${text}</div></div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="qanswer"><div class="a-value">Answer: ${answer}</div></div>`;
+    container.appendChild(d);
+  }
+
+  // Square roots & squares reference grids
+  const roots = [[4,2],[9,3],[16,4],[25,5],[36,6],[49,7],[64,8],[81,9],[100,10]];
+  const rootsGrid = document.getElementById('rootsGrid');
+  roots.forEach(([n,r])=>{
+    const c = document.createElement('div');
+    c.className='refcell';
+    c.innerHTML = `<div class="base">√${n}</div><div class="val">${r}</div>`;
+    rootsGrid.appendChild(c);
+  });
+  const squaresGrid = document.getElementById('squaresGrid');
+  for(let i=1;i<=20;i++){
+    const c = document.createElement('div');
+    c.className='refcell';
+    c.innerHTML = `<div class="base">${i}²</div><div class="val">${i*i}</div>`;
+    squaresGrid.appendChild(c);
+  }
+
+  // A-Z strips
+  const azForward = document.getElementById('azForward');
+  const azReverse = document.getElementById('azReverse');
+  for(let i=0;i<26;i++){
+    const letter = String.fromCharCode(65+i);
+    const f = document.createElement('div'); f.className='az-cell';
+    f.innerHTML = `<div class="l">${letter}</div><div class="n">${i+1}</div>`;
+    azForward.appendChild(f);
+    const r = document.createElement('div'); r.className='az-cell';
+    r.innerHTML = `<div class="l">${letter}</div><div class="n">${26-i}</div>`;
+    azReverse.appendChild(r);
+  }
+
+  // Simplification — Practice, Solve (10)
+  const simpPractice = [
+    ["15 + 5 × 3","30"],["30 − 12 ÷ 3","26"],["(15+5) × 2","40"],["100 ÷ 5 + 10","30"],
+    ["2³ + 4 × 2","16"],["1/2 + 1/4","3/4"],["3/4 − 1/4","1/2"],["2/3 × 3/4","1/2"],
+    ["25% of 400","100"],["√144 + 8","20"]
+  ];
+  const simpPracticeGrid = document.getElementById('simpPracticeGrid');
+  simpPractice.forEach((q,i)=>qcard(simpPracticeGrid, i+1, q[0], q[1]));
+
+  // Simplification — Student practice Easy/Medium/Difficult (30, matches combined answer key)
+  const simpEasy = [
+    ["10 + 5 × 2","20"],["20 − 8 ÷ 2","16"],["15 + 3 × 4","27"],["30 ÷ 5 + 8","14"],["40 − 6 × 5","10"],
+    ["(10+5) × 2","30"],["20 − (5+3)","12"],["2³ + 5","13"],["√81 + 5","14"],["25% of 200","50"]
+  ];
+  const simpMedium = [
+    ["20 + 12 ÷ 3 × 2","28"],["50 − 10 ÷ 2 + 5","50"],["(20+10) ÷ 5","6"],["5 + 3² × 2","23"],["(15−5)²","100"],
+    ["1/2 + 1/3","5/6"],["3/4 − 1/4","1/2"],["2/3 × 3/5","2/5"],["3/4 ÷ 1/2","3/2"],["50% of 360","180"]
+  ];
+  const simpDifficult = [
+    ["100 − [20 + {10×2}]","60"],["50 + 20 ÷ 5 × 3 − 10","52"],["[30 − (5+5)] × 2","40"],["2³ + 3² × 2","26"],
+    ["1/2 + 3/4 − 1/4","1"],["2/3 + 5/6","3/2"],["25% of 800 + 10% of 500","250"],["√144 + √81","21"],
+    ["100 ÷ [5 × (2+3)]","4"],["50 − [20 − (5×2)]","40"]
+  ];
+  const simpEasyGrid = document.getElementById('simpEasyGrid');
+  simpEasy.forEach((q,i)=>qcard(simpEasyGrid, i+1, q[0], q[1]));
+  const simpMediumGrid = document.getElementById('simpMediumGrid');
+  simpMedium.forEach((q,i)=>qcard(simpMediumGrid, i+11, q[0], q[1]));
+  const simpDifficultGrid = document.getElementById('simpDifficultGrid');
+  simpDifficult.forEach((q,i)=>qcard(simpDifficultGrid, i+21, q[0], q[1]));
+
+  // Alphabet series practice Easy/Medium/Advanced (30, matches combined answer key)
+  const azEasy = [
+    ["A, B, C, D, ?","E"],["B, C, D, E, ?","F"],["Z, Y, X, W, ?","V"],["A, C, E, G, ?","I"],["B, D, F, H, ?","J"],
+    ["A, D, G, J, ?","M"],["Z, X, V, T, ?","R"],["C, F, I, L, ?","O"],["What is the 13th letter?","M"],["What is the 20th letter?","T"]
+  ];
+  const azMedium = [
+    ["A, B, D, G, K, ?","P"],["Z, Y, W, T, P, ?","K"],["A, Z, B, Y, C, X, ?","D"],["B, Y, C, X, D, W, ?","E"],["C, E, H, L, ?","Q"],
+    ["D, G, K, P, ?","V"],["Y, V, R, M, ?","G"],["A, C, F, J, ?","O"],["Reverse position of D?","23"],["Reverse position of T?","7"]
+  ];
+  const azAdvanced = [
+    ["A, C, F, J, O, ?","U"],["Z, W, S, N, H, ?","A"],["B, E, J, Q, ?","Z"],["A, Z, C, X, E, V, ?","T"],["D, H, M, S, ?","Z"],
+    ["C, G, L, R, ?","Y"],["Z, V, Q, K, ?","D"],["A, D, B, E, C, F, ?","D"],["B, C, E, H, L, ?","Q"],["X, W, U, R, N, ?","I"]
+  ];
+  const azEasyGrid = document.getElementById('azEasyGrid');
+  azEasy.forEach((q,i)=>qcard(azEasyGrid, i+1, q[0], q[1]));
+  const azMediumGrid = document.getElementById('azMediumGrid');
+  azMedium.forEach((q,i)=>qcard(azMediumGrid, i+11, q[0], q[1]));
+  const azAdvancedGrid = document.getElementById('azAdvancedGrid');
+  azAdvanced.forEach((q,i)=>qcard(azAdvancedGrid, i+21, q[0], q[1]));
+
+  // Final test
+  const finalA = [
+    ["15 + 5 × 4","35"],["40 − 12 ÷ 3","36"],["(20+10) ÷ 5","6"],["2³ + 5 × 2","18"],["100 − [20 + (5×4)]","60"],
+    ["1/2 + 1/4","3/4"],["3/4 − 1/4","1/2"],["25% of 600","150"],["√169 + 7","20"],["50 − [20 − (4×5)]","50"]
+  ];
+  const finalB = [
+    ["A, C, E, G, ?","I"],["Z, X, V, T, ?","R"],["A, D, G, J, ?","M"],["A, Z, B, Y, C, X, ?","D"],["A, B, D, G, K, ?","P"],
+    ["Z, Y, W, T, P, ?","K"],["C, F, I, L, ?","O"],["A, C, F, J, O, ?","U"],["What is the 18th letter?","R"],["How many letters between F and M?","6"]
+  ];
+  const finalAGrid = document.getElementById('finalAGrid');
+  finalA.forEach((q,i)=>qcard(finalAGrid, i+1, q[0], q[1]));
+  const finalBGrid = document.getElementById('finalBGrid');
+  finalB.forEach((q,i)=>qcard(finalBGrid, i+11, q[0], q[1]));
+</script>
+
+</body>
+</html>

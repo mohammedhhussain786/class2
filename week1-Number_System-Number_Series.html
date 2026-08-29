@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 1 — Number System &amp; Number Series</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,450;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F5EF;
+    --paper-alt:#ECEFE7;
+    --grid-line:#DCE2D6;
+    --ink:#182530;
+    --ink-soft:#54626C;
+    --ink-faint:#8B968E;
+    --rule:#CBD3C4;
+    --teal:#2F7A6F;
+    --teal-bg:#E3F0EB;
+    --amber:#C1832B;
+    --amber-bg:#FAF0DC;
+    --rose:#AE5044;
+    --rose-bg:#F5E7E2;
+    --card:#FFFFFF;
+    --shadow: 0 1px 2px rgba(24,37,48,0.06), 0 6px 20px rgba(24,37,48,0.05);
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 27px, var(--grid-line) 27px, var(--grid-line) 28px),
+      repeating-linear-gradient(90deg, transparent, transparent 27px, var(--grid-line) 27px, var(--grid-line) 28px),
+      var(--paper);
+    background-attachment: fixed;
+    line-height:1.6;
+  }
+  a{color:inherit;}
+  h1,h2,h3,h4{font-family:'Fraunces', serif; font-weight:600; margin:0 0 0.4em 0; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* ===== Layout ===== */
+  .shell{
+    display:grid;
+    grid-template-columns: 272px 1fr;
+    max-width:1240px;
+    margin:0 auto;
+    min-height:100vh;
+  }
+  .sidebar{
+    position:sticky;
+    top:0;
+    align-self:start;
+    height:100vh;
+    overflow-y:auto;
+    padding:28px 18px 40px 28px;
+    border-right:1px solid var(--rule);
+  }
+  .brand{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .brand .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    color:var(--teal);
+    background:var(--teal-bg);
+    padding:3px 8px;
+    border-radius:20px;
+    font-weight:600;
+  }
+  .brand-title{font-family:'Fraunces', serif; font-size:19px; font-weight:700; line-height:1.25; margin:10px 0 2px 0;}
+  .brand-sub{font-size:12.5px; color:var(--ink-soft); margin-bottom:26px;}
+
+  nav.toc{font-size:13.5px;}
+  nav.toc .group-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:22px 0 8px 0;
+  }
+  nav.toc .group-label:first-child{margin-top:0;}
+  nav.toc ul{list-style:none; margin:0; padding:0;}
+  nav.toc li a{
+    display:block;
+    padding:6px 10px;
+    margin:1px 0;
+    border-radius:8px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:background 0.15s, color 0.15s;
+    border-left:2px solid transparent;
+  }
+  nav.toc li a:hover{background:var(--paper-alt); color:var(--ink);}
+  nav.toc li a.active{
+    color:var(--teal);
+    background:var(--teal-bg);
+    border-left:2px solid var(--teal);
+    font-weight:600;
+  }
+  nav.toc li.sub a{padding-left:20px; font-size:12.8px;}
+
+  .mobile-bar{display:none;}
+
+  main{padding:44px 56px 100px 56px; min-width:0;}
+
+  /* ===== Hero ===== */
+  .hero{
+    padding: 10px 0 40px 0;
+    margin-bottom:36px;
+    border-bottom:1px solid var(--rule);
+  }
+  .hero-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--amber);
+    margin-bottom:14px;
+  }
+  .hero h1{font-size:clamp(30px, 4vw, 44px); line-height:1.08; max-width:720px;}
+  .hero p.lede{font-size:16px; color:var(--ink-soft); max-width:560px; margin-top:14px;}
+
+  .hero-chain-wrap{margin-top:34px; overflow-x:auto; padding-bottom:6px;}
+  .hero-caption{font-size:12.5px; color:var(--ink-faint); margin-top:10px; font-family:'IBM Plex Mono', monospace;}
+
+  /* ===== Number chain — signature component ===== */
+  .chain{
+    display:flex;
+    align-items:center;
+    gap:0;
+    flex-wrap:wrap;
+    margin:18px 0;
+  }
+  .tile{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:17px;
+    min-width:46px;
+    height:46px;
+    padding:0 10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--card);
+    border:1.5px solid var(--ink);
+    border-radius:10px;
+    box-shadow: 2px 2px 0 var(--ink);
+    flex-shrink:0;
+  }
+  .tile.answer{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+    box-shadow: 2px 2px 0 #1c5148;
+  }
+  .tile.query{
+    color:var(--rose);
+    border-style:dashed;
+    box-shadow:none;
+  }
+  .op{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--amber);
+    background:var(--amber-bg);
+    border-radius:20px;
+    padding:4px 9px;
+    margin:0 6px;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .arrow{color:var(--ink-faint); margin:0 2px; font-size:14px; flex-shrink:0;}
+
+  /* diff row under increasing-difference examples */
+  .diff-row{
+    display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--ink-soft);
+    margin:6px 0 18px 0;
+  }
+  .diff-row .d{background:var(--paper-alt); border:1px solid var(--rule); border-radius:8px; padding:3px 9px;}
+  .diff-row .d.next{background:var(--amber-bg); color:var(--amber); border-color:transparent; font-weight:600;}
+
+  /* ===== Section scaffolding ===== */
+  section.block{margin-bottom:56px; scroll-margin-top:24px;}
+  .section-head{margin-bottom:22px;}
+  .part-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink-faint); margin-bottom:8px;
+  }
+  h2.title{font-size:26px;}
+  h3.pattern-title{font-size:18.5px; display:flex; align-items:baseline; gap:10px;}
+  h3.pattern-title .idx{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--teal);
+    background:var(--teal-bg); border-radius:6px; padding:2px 7px; font-weight:600;
+  }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--rule);
+    border-radius:var(--radius);
+    padding:24px 26px;
+    box-shadow:var(--shadow);
+    margin-bottom:18px;
+  }
+  p{margin:0 0 12px 0;}
+  p:last-child{margin-bottom:0;}
+
+  .callout{
+    border-left:3px solid var(--rose);
+    background:var(--rose-bg);
+    border-radius:0 10px 10px 0;
+    padding:14px 18px;
+    font-size:14.5px;
+    color:#5c2f26;
+    margin:16px 0;
+  }
+  .callout b{color:var(--rose);}
+  .callout::before{
+    content:"Teaching note";
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--rose);
+    margin-bottom:5px;
+    opacity:0.85;
+  }
+
+  .answer-line{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:15px;
+    color:var(--teal);
+    font-weight:600;
+    margin-top:2px;
+  }
+
+  /* ===== Definition grid (number types) ===== */
+  .def-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+    gap:14px;
+  }
+  .def-card{
+    background:var(--card);
+    border:1px solid var(--rule);
+    border-radius:12px;
+    padding:18px 20px;
+    box-shadow:var(--shadow);
+  }
+  .def-card h4{font-size:15px; margin-bottom:6px;}
+  .def-card p{font-size:13.8px; color:var(--ink-soft); margin-bottom:8px;}
+  .def-card .ex{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13.5px;
+    color:var(--ink);
+    background:var(--paper-alt);
+    border-radius:8px;
+    padding:6px 10px;
+    display:inline-block;
+  }
+  .def-card .flag{
+    display:inline-block;
+    margin-top:9px;
+    font-size:12px;
+    color:var(--amber);
+    background:var(--amber-bg);
+    padding:3px 8px;
+    border-radius:20px;
+    font-weight:600;
+  }
+
+  /* ===== Divisibility cards ===== */
+  .div-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:14px;
+  }
+  .div-card{
+    background:var(--card); border:1px solid var(--rule); border-radius:12px;
+    padding:18px 20px; box-shadow:var(--shadow);
+  }
+  .div-card .rule-num{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--teal);
+    font-weight:700; letter-spacing:0.05em; margin-bottom:6px;
+  }
+  .div-card h4{font-size:15.5px; margin-bottom:8px;}
+  .div-card .worked{
+    font-family:'IBM Plex Mono', monospace; font-size:13.5px; color:var(--ink-soft);
+    background:var(--paper-alt); border-radius:8px; padding:10px 12px; margin-top:8px; line-height:1.65;
+  }
+  .div-card .worked .check{color:var(--teal); font-weight:600;}
+
+  /* ===== HCF / LCM worked panels ===== */
+  .work-panel{
+    display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:8px;
+  }
+  @media (max-width:640px){.work-panel{grid-template-columns:1fr;}}
+  .work-col{
+    background:var(--paper-alt); border-radius:10px; padding:14px 16px;
+    font-family:'IBM Plex Mono', monospace; font-size:13.5px; color:var(--ink-soft);
+  }
+  .work-col .label{font-family:'Inter',sans-serif; font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint); margin-bottom:6px; font-weight:600;}
+  .work-col .common{color:var(--teal); font-weight:600;}
+
+  /* ===== Practice question cards with reveal ===== */
+  .qgrid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:14px;}
+  details.qcard{
+    background:var(--card); border:1px solid var(--rule); border-radius:12px;
+    box-shadow:var(--shadow); overflow:hidden;
+  }
+  details.qcard summary{
+    list-style:none; cursor:pointer; padding:16px 18px;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+  }
+  details.qcard summary::-webkit-details-marker{display:none;}
+  .qnum{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-faint);
+    letter-spacing:0.08em; text-transform:uppercase; margin-bottom:4px;
+  }
+  .qtext{font-family:'IBM Plex Mono', monospace; font-size:15px; font-weight:600;}
+  .chev{
+    flex-shrink:0; width:22px; height:22px; border-radius:50%;
+    background:var(--paper-alt); display:flex; align-items:center; justify-content:center;
+    font-size:12px; color:var(--ink-soft); transition:transform 0.2s;
+  }
+  details.qcard[open] .chev{transform:rotate(180deg); background:var(--teal-bg); color:var(--teal);}
+  .qanswer{
+    padding:0 18px 16px 18px;
+    border-top:1px dashed var(--rule);
+    margin-top:2px; padding-top:12px;
+  }
+  .qanswer .a-value{font-family:'IBM Plex Mono', monospace; color:var(--teal); font-weight:700; font-size:16px;}
+  .qanswer .a-pattern{font-size:12.8px; color:var(--ink-soft); margin-top:4px;}
+
+  footer{
+    border-top:1px solid var(--rule);
+    padding:28px 56px 40px 56px;
+    font-size:12.8px; color:var(--ink-faint);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  /* ===== responsive ===== */
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr;}
+    .sidebar{
+      position:relative; height:auto; border-right:none; border-bottom:1px solid var(--rule);
+      padding:18px 20px; display:none;
+    }
+    .sidebar.open{display:block;}
+    .mobile-bar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 20px; border-bottom:1px solid var(--rule);
+      position:sticky; top:0; background:var(--paper); z-index:10;
+    }
+    .mobile-bar .brand-title{font-size:16px; margin:0;}
+    .mobile-bar button{
+      font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:600;
+      background:var(--ink); color:#fff; border:none; border-radius:20px; padding:8px 14px; cursor:pointer;
+    }
+    main{padding:32px 20px 80px 20px;}
+    footer{padding:24px 20px 40px 20px; flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<div class="mobile-bar">
+  <p class="brand-title">Class 1 · Number System</p>
+  <button id="navToggle">Contents</button>
+</div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="eyebrow">CLASS 1</span>
+    </div>
+    <p class="brand-title">Number System &amp; Number Series</p>
+    <p class="brand-sub">Placement Aptitude &amp; Reasoning · B.Tech CSE (AI)</p>
+
+    <nav class="toc">
+      <p class="group-label">Part A · Reasoning</p>
+      <ul>
+        <li><a href="#series-intro">What is a number series?</a></li>
+        <li class="sub"><a href="#p1">1. Addition pattern</a></li>
+        <li class="sub"><a href="#p2">2. Subtraction pattern</a></li>
+        <li class="sub"><a href="#p3">3. Multiplication pattern</a></li>
+        <li class="sub"><a href="#p4">4. Division pattern</a></li>
+        <li class="sub"><a href="#p5">5. Increasing difference</a></li>
+        <li class="sub"><a href="#p6">6. Square pattern</a></li>
+        <li class="sub"><a href="#p7">7. Cube pattern</a></li>
+        <li class="sub"><a href="#p8">8. Alternating pattern</a></li>
+        <li class="sub"><a href="#p9">9. Mixed pattern</a></li>
+        <li><a href="#series-practice">Practice test (10 Qs)</a></li>
+      </ul>
+
+      <p class="group-label">Part B · Aptitude</p>
+      <ul>
+        <li><a href="#number-types">Types of numbers</a></li>
+        <li><a href="#factors">Factors</a></li>
+        <li><a href="#multiples">Multiples</a></li>
+        <li><a href="#divisibility">Divisibility rules</a></li>
+        <li><a href="#hcf">HCF</a></li>
+        <li><a href="#lcm">LCM</a></li>
+        <li><a href="#formula">HCF × LCM formula</a></li>
+        <li><a href="#number-questions">Practice questions (10 Qs)</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <p class="hero-eyebrow">Placement Prep — Reasoning &amp; Aptitude</p>
+      <h1>Every sequence hides a rule.<br>Find it, and the next term follows.</h1>
+      <p class="lede">This session covers two foundations for placement tests: spotting patterns in number series, and the core building blocks of the number system — factors, multiples, divisibility, HCF and LCM.</p>
+
+      <div class="hero-chain-wrap">
+        <div class="chain">
+          <div class="tile">2</div><span class="op">+2</span>
+          <div class="tile">4</div><span class="op">+2</span>
+          <div class="tile">6</div><span class="op">+2</span>
+          <div class="tile">8</div><span class="op">+2</span>
+          <div class="tile answer">10</div>
+        </div>
+      </div>
+      <p class="hero-caption">// spot the rule → apply it once more</p>
+    </section>
+
+    <!-- ================= PART A ================= -->
+    <section class="block" id="series-intro">
+      <div class="section-head">
+        <p class="part-tag">Part A — Reasoning</p>
+        <h2 class="title">Number Series</h2>
+      </div>
+      <div class="card">
+        <p>In number series questions, students are given a sequence of numbers. Their job is to identify the pattern connecting consecutive terms, then use it to find the missing number.</p>
+        <p style="margin-top:14px;"><strong>Worked example</strong></p>
+        <div class="chain">
+          <div class="tile">2</div><span class="op">+2</span>
+          <div class="tile">4</div><span class="op">+2</span>
+          <div class="tile">6</div><span class="op">+2</span>
+          <div class="tile">8</div><span class="op">+2</span>
+          <div class="tile query">?</div>
+        </div>
+        <p class="answer-line">Answer = 10</p>
+      </div>
+    </section>
+
+    <section class="block" id="p1">
+      <h3 class="pattern-title"><span class="idx">1</span>Addition pattern</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile">5</div><span class="op">+5</span>
+          <div class="tile">10</div><span class="op">+5</span>
+          <div class="tile">15</div><span class="op">+5</span>
+          <div class="tile">20</div><span class="op">+5</span>
+          <div class="tile answer">25</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="p2">
+      <h3 class="pattern-title"><span class="idx">2</span>Subtraction pattern</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile">50</div><span class="op">−5</span>
+          <div class="tile">45</div><span class="op">−5</span>
+          <div class="tile">40</div><span class="op">−5</span>
+          <div class="tile">35</div><span class="op">−5</span>
+          <div class="tile answer">30</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="p3">
+      <h3 class="pattern-title"><span class="idx">3</span>Multiplication pattern</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile">2</div><span class="op">×2</span>
+          <div class="tile">4</div><span class="op">×2</span>
+          <div class="tile">8</div><span class="op">×2</span>
+          <div class="tile">16</div><span class="op">×2</span>
+          <div class="tile answer">32</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="p4">
+      <h3 class="pattern-title"><span class="idx">4</span>Division pattern</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile">64</div><span class="op">÷2</span>
+          <div class="tile">32</div><span class="op">÷2</span>
+          <div class="tile">16</div><span class="op">÷2</span>
+          <div class="tile">8</div><span class="op">÷2</span>
+          <div class="tile answer">4</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="p5">
+      <h3 class="pattern-title"><span class="idx">5</span>Increasing difference</h3>
+      <div class="card">
+        <p style="font-size:13.5px; color:var(--ink-soft);">This one matters most for placement papers — the gap between terms grows by a fixed step.</p>
+        <div class="chain">
+          <div class="tile">2</div>
+          <div class="tile">5</div>
+          <div class="tile">10</div>
+          <div class="tile">17</div>
+          <div class="tile">26</div>
+          <div class="tile query">?</div>
+        </div>
+        <div class="diff-row">
+          <span class="d">2→5 = +3</span>
+          <span class="d">5→10 = +5</span>
+          <span class="d">10→17 = +7</span>
+          <span class="d">17→26 = +9</span>
+          <span class="d next">next = +11</span>
+        </div>
+        <p class="answer-line">26 + 11 = 37</p>
+      </div>
+    </section>
+
+    <section class="block" id="p6">
+      <h3 class="pattern-title"><span class="idx">6</span>Square pattern</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile">1</div>
+          <div class="tile">4</div>
+          <div class="tile">9</div>
+          <div class="tile">16</div>
+          <div class="tile">25</div>
+          <div class="tile answer">36</div>
+        </div>
+        <p class="hero-caption" style="margin-top:2px;">// 1², 2², 3², 4², 5², 6²</p>
+      </div>
+    </section>
+
+    <section class="block" id="p7">
+      <h3 class="pattern-title"><span class="idx">7</span>Cube pattern</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile">1</div>
+          <div class="tile">8</div>
+          <div class="tile">27</div>
+          <div class="tile">64</div>
+          <div class="tile answer">125</div>
+        </div>
+        <p class="hero-caption" style="margin-top:2px;">// 1³, 2³, 3³, 4³, 5³</p>
+      </div>
+    </section>
+
+    <section class="block" id="p8">
+      <h3 class="pattern-title"><span class="idx">8</span>Alternating pattern</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile">2</div>
+          <div class="tile">5</div>
+          <div class="tile">4</div>
+          <div class="tile">10</div>
+          <div class="tile">6</div>
+          <div class="tile">15</div>
+          <div class="tile query">?</div>
+        </div>
+        <div class="work-panel">
+          <div class="work-col">
+            <p class="label">Odd positions</p>
+            2, 4, 6, <span class="common">?</span> → <span class="common">8</span>
+          </div>
+          <div class="work-col">
+            <p class="label">Even positions</p>
+            5, 10, 15
+          </div>
+        </div>
+        <p class="answer-line" style="margin-top:12px;">Answer = 8</p>
+        <div class="callout">If the normal pattern doesn't work, separate the odd‑position and even‑position numbers into two chains and solve each one.</div>
+      </div>
+    </section>
+
+    <section class="block" id="p9">
+      <h3 class="pattern-title"><span class="idx">9</span>Mixed pattern</h3>
+      <div class="card">
+        <div class="chain">
+          <div class="tile">2</div><span class="op">×2 +1</span>
+          <div class="tile">5</div><span class="op">×2 +1</span>
+          <div class="tile">11</div><span class="op">×2 +1</span>
+          <div class="tile">23</div><span class="op">×2 +1</span>
+          <div class="tile">47</div><span class="op">×2 +1</span>
+          <div class="tile answer">95</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="series-practice">
+      <div class="section-head">
+        <p class="part-tag">Part A — Practice</p>
+        <h2 class="title">Number Series Practice Test</h2>
+        <p style="color:var(--ink-soft); font-size:14px; margin-top:6px;">Tap a question to check the answer and pattern.</p>
+      </div>
+      <div class="qgrid" id="seriesGrid"></div>
+    </section>
+
+    <!-- ================= PART B ================= -->
+    <section class="block" id="number-types">
+      <div class="section-head">
+        <p class="part-tag">Part B — Aptitude</p>
+        <h2 class="title">Number System</h2>
+      </div>
+      <div class="card">
+        <p><strong>What is a number?</strong> A mathematical value used to represent quantity — for example 1, 2, 3, 10, 100, 500. Numbers are classified into several types, shown below.</p>
+      </div>
+
+      <div class="def-grid">
+        <div class="def-card">
+          <h4>Natural numbers</h4>
+          <p>Counting numbers starting from 1. Do not include 0.</p>
+          <span class="ex">1, 2, 3, 4, 5, …</span>
+        </div>
+        <div class="def-card">
+          <h4>Whole numbers</h4>
+          <p>Natural numbers including zero.</p>
+          <span class="ex">0, 1, 2, 3, 4, 5, …</span>
+        </div>
+        <div class="def-card">
+          <h4>Integers</h4>
+          <p>Positive numbers, negative numbers, and zero.</p>
+          <span class="ex">…, −3, −2, −1, 0, 1, 2, 3, …</span>
+        </div>
+        <div class="def-card">
+          <h4>Even numbers</h4>
+          <p>Numbers divisible by 2.</p>
+          <span class="ex">2, 4, 6, 8, 10, 12</span>
+        </div>
+        <div class="def-card">
+          <h4>Odd numbers</h4>
+          <p>Numbers not divisible by 2.</p>
+          <span class="ex">1, 3, 5, 7, 9, 11</span>
+        </div>
+        <div class="def-card">
+          <h4>Prime numbers</h4>
+          <p>Exactly two factors: 1 and itself.</p>
+          <span class="ex">2, 3, 5, 7, 11, 13, 17…</span>
+          <span class="flag">2 is the only even prime</span>
+        </div>
+        <div class="def-card">
+          <h4>Composite numbers</h4>
+          <p>Numbers with more than two factors — e.g. 6 has factors 1, 2, 3, 6.</p>
+          <span class="ex">4, 6, 8, 9, 10, 12</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="factors">
+      <h2 class="title" style="font-size:22px;">Factors</h2>
+      <div class="card">
+        <p>A factor is a number that divides another number exactly.</p>
+        <div class="work-panel">
+          <div class="work-col">
+            <p class="label">Factors of 12</p>
+            1, 2, 3, 4, 6, 12 <span style="color:var(--ink-faint);">— 6 factors</span>
+          </div>
+          <div class="work-col">
+            <p class="label">Ask students: factors of 18?</p>
+            <span class="common">1, 2, 3, 6, 9, 18</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="multiples">
+      <h2 class="title" style="font-size:22px;">Multiples</h2>
+      <div class="card">
+        <p>Multiples are obtained by multiplying a number by 1, 2, 3, 4…</p>
+        <div class="work-panel">
+          <div class="work-col">
+            <p class="label">Multiples of 5</p>
+            5, 10, 15, 20, 25, 30…
+          </div>
+          <div class="work-col">
+            <p class="label">Multiples of 7</p>
+            7, 14, 21, 28, 35…
+          </div>
+        </div>
+        <div class="callout">Factors are usually finite, while multiples continue infinitely. For 12 — factors: 1, 2, 3, 4, 6, 12 (finite). Multiples: 12, 24, 36, 48, 60… (infinite).</div>
+      </div>
+    </section>
+
+    <section class="block" id="divisibility">
+      <h2 class="title" style="font-size:22px;">Divisibility Rules</h2>
+      <p style="color:var(--ink-soft); font-size:14px; margin-top:-8px; margin-bottom:18px;">Extremely important for aptitude examinations.</p>
+      <div class="div-grid">
+        <div class="div-card">
+          <p class="rule-num">RULE · ÷2</p>
+          <h4>Last digit is 0, 2, 4, 6, or 8</h4>
+          <div class="worked">248 → last digit 8 <span class="check">✓ divisible by 2</span></div>
+        </div>
+        <div class="div-card">
+          <p class="rule-num">RULE · ÷3</p>
+          <h4>Sum of digits divisible by 3</h4>
+          <div class="worked">123 → 1+2+3 = 6 <span class="check">✓ 6 is divisible by 3</span></div>
+        </div>
+        <div class="div-card">
+          <p class="rule-num">RULE · ÷5</p>
+          <h4>Last digit is 0 or 5</h4>
+          <div class="worked">125, 250, 435 <span class="check">✓ all divisible by 5</span></div>
+        </div>
+        <div class="div-card">
+          <p class="rule-num">RULE · ÷9</p>
+          <h4>Sum of digits divisible by 9</h4>
+          <div class="worked">729 → 7+2+9 = 18 <span class="check">✓ 18 is divisible by 9</span></div>
+        </div>
+        <div class="div-card">
+          <p class="rule-num">RULE · ÷10</p>
+          <h4>Last digit is 0</h4>
+          <div class="worked">120, 450, 1000 <span class="check">✓ all divisible by 10</span></div>
+        </div>
+        <div class="div-card">
+          <p class="rule-num">RULE · ÷11</p>
+          <h4>Alternating digit sums differ by 0 or a multiple of 11</h4>
+          <div class="worked">121 → (1+1)−2 = 0 <span class="check">✓ divisible by 11</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="hcf">
+      <h2 class="title" style="font-size:22px;">HCF — Highest Common Factor</h2>
+      <div class="card">
+        <p>Find the HCF of 12 and 18.</p>
+        <div class="work-panel">
+          <div class="work-col">
+            <p class="label">Factors of 12</p>
+            1, 2, <span class="common">3, 6,</span> 12
+          </div>
+          <div class="work-col">
+            <p class="label">Factors of 18</p>
+            1, 2, <span class="common">3, 6,</span> 9, 18
+          </div>
+        </div>
+        <p class="answer-line" style="margin-top:12px;">Common factors: 1, 2, 3, 6 → HCF = 6</p>
+      </div>
+    </section>
+
+    <section class="block" id="lcm">
+      <h2 class="title" style="font-size:22px;">LCM — Least Common Multiple</h2>
+      <div class="card">
+        <p>Find the LCM of 4 and 6.</p>
+        <div class="work-panel">
+          <div class="work-col">
+            <p class="label">Multiples of 4</p>
+            4, 8, <span class="common">12,</span> 16…
+          </div>
+          <div class="work-col">
+            <p class="label">Multiples of 6</p>
+            6, <span class="common">12,</span> 18…
+          </div>
+        </div>
+        <p class="answer-line" style="margin-top:12px;">First common multiple → LCM = 12</p>
+      </div>
+    </section>
+
+    <section class="block" id="formula">
+      <h2 class="title" style="font-size:22px;">The HCF × LCM Formula</h2>
+      <div class="card">
+        <p>For two positive integers, the product of the HCF and LCM equals the product of the numbers themselves.</p>
+        <div class="chain">
+          <div class="tile">6</div><span class="op">×</span>
+          <div class="tile">36</div><span class="arrow">=</span>
+          <div class="tile answer">216</div>
+        </div>
+        <div class="chain">
+          <div class="tile">12</div><span class="op">×</span>
+          <div class="tile">18</div><span class="arrow">=</span>
+          <div class="tile answer">216</div>
+        </div>
+        <p class="answer-line">Correct — HCF(12,18) × LCM(12,18) = 12 × 18</p>
+      </div>
+    </section>
+
+    <section class="block" id="number-questions">
+      <div class="section-head">
+        <p class="part-tag">Part B — Practice</p>
+        <h2 class="title">Number System Questions</h2>
+        <p style="color:var(--ink-soft); font-size:14px; margin-top:6px;">Tap a question to reveal the answer.</p>
+      </div>
+      <div class="qgrid" id="numberGrid"></div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>Class 1 — Number System &amp; Number Series · Placement Aptitude &amp; Reasoning</span>
+  <span>B.Tech CSE (Artificial Intelligence)</span>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const sidebar = document.getElementById('sidebar');
+  if(navToggle){
+    navToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      navToggle.textContent = sidebar.classList.contains('open') ? 'Close' : 'Contents';
+    });
+    document.querySelectorAll('#sidebar a').forEach(a=>{
+      a.addEventListener('click', ()=>{
+        sidebar.classList.remove('open');
+        navToggle.textContent = 'Contents';
+      });
+    });
+  }
+
+  // Active link highlight on scroll
+  const links = document.querySelectorAll('nav.toc a');
+  const targets = Array.from(links).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id = '#' + entry.target.id;
+        links.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+  targets.forEach(t => observer.observe(t));
+
+  // Build a question card
+  function qcard(container, num, text, answer, pattern){
+    const d = document.createElement('details');
+    d.className = 'qcard';
+    d.innerHTML = `
+      <summary>
+        <div>
+          <div class="qnum">Question ${num}</div>
+          <div class="qtext">${text}</div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="qanswer">
+        <div class="a-value">Answer: ${answer}</div>
+        ${pattern ? `<div class="a-pattern">Pattern: ${pattern}</div>` : ''}
+      </div>`;
+    container.appendChild(d);
+  }
+
+  const series = [
+    ["3, 6, 9, 12, ?", "15", "+3"],
+    ["20, 25, 30, 35, ?", "40", "+5"],
+    ["50, 45, 40, 35, ?", "30", "−5"],
+    ["2, 6, 18, 54, ?", "162", "×3"],
+    ["64, 32, 16, 8, ?", "4", "÷2"],
+    ["1, 4, 9, 16, ?", "25", "Squares"],
+    ["1, 8, 27, 64, ?", "125", "Cubes"],
+    ["2, 5, 10, 17, 26, ?", "37", "+3, +5, +7, +9, +11"],
+    ["5, 10, 20, 40, ?", "80", "×2"],
+    ["2, 5, 11, 23, 47, ?", "95", "×2 +1"],
+  ];
+  const seriesGrid = document.getElementById('seriesGrid');
+  series.forEach((q,i)=> qcard(seriesGrid, i+1, q[0], q[1], q[2]));
+
+  const numberQs = [
+    ["Which is the smallest natural number?", "1"],
+    ["Is 0 a whole number?", "Yes"],
+    ["Is 2 a prime number?", "Yes"],
+    ["Is 15 a prime number or composite number?", "Composite"],
+    ["Write all factors of 20.", "1, 2, 4, 5, 10, 20"],
+    ["Write the first five multiples of 8.", "8, 16, 24, 32, 40"],
+    ["Is 246 divisible by 2?", "Yes"],
+    ["Is 234 divisible by 3?", "Yes"],
+    ["Find HCF of 12 and 20.", "4"],
+    ["Find LCM of 4 and 6.", "12"],
+  ];
+  const numberGrid = document.getElementById('numberGrid');
+  numberQs.forEach((q,i)=> qcard(numberGrid, i+1, q[0], q[1], null));
+</script>
+
+</body>
+</html>
