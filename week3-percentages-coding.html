@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 3 — Percentages &amp; Coding–Decoding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eceef2;
+  --surface:#ffffff;
+  --ink:#141d26;
+  --muted:#5d6b7a;
+  --rule:#d5dae1;
+  --blue:#17456b;
+  --blue-soft:#e4ecf4;
+  --mark:#a8321c;
+  --mark-soft:#fbeae6;
+  --grid:rgba(23,69,107,.07);
+  --shadow:0 1px 0 var(--rule);
+  --sans:"Bricolage Grotesque",system-ui,sans-serif;
+  --serif:"Source Serif 4",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#11161c;
+    --surface:#191f27;
+    --ink:#e6eaef;
+    --muted:#9aa7b5;
+    --rule:#2c343e;
+    --blue:#8fbde3;
+    --blue-soft:#1d2833;
+    --mark:#f0937c;
+    --mark-soft:#2a1c19;
+    --grid:rgba(143,189,227,.08);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#11161c;
+  --surface:#191f27;
+  --ink:#e6eaef;
+  --muted:#9aa7b5;
+  --rule:#2c343e;
+  --blue:#8fbde3;
+  --blue-soft:#1d2833;
+  --mark:#f0937c;
+  --mark-soft:#2a1c19;
+  --grid:rgba(143,189,227,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:1.0625rem;line-height:1.65;
+  -webkit-text-size-adjust:100%;
+}
+h1,h2,h3,h4{font-family:var(--sans);font-weight:700;line-height:1.15;letter-spacing:-.015em;margin:0}
+a{color:var(--blue)}
+:focus-visible{outline:2.5px solid var(--mark);outline-offset:3px;border-radius:2px}
+
+/* ---------- top bar ---------- */
+.bar{
+  position:sticky;top:0;z-index:50;background:var(--surface);
+  border-bottom:1px solid var(--rule);
+}
+.bar-in{
+  max-width:1180px;margin:0 auto;padding:.6rem 1.1rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.bar-title{font-family:var(--sans);font-weight:700;font-size:.95rem;letter-spacing:-.01em}
+.bar-title span{color:var(--muted);font-weight:500}
+.bar-sp{flex:1}
+.btn{
+  font-family:var(--sans);font-size:.82rem;font-weight:500;
+  background:var(--surface);color:var(--ink);border:1px solid var(--rule);
+  border-radius:7px;padding:.38rem .7rem;cursor:pointer;
+}
+.btn:hover{border-color:var(--blue);color:var(--blue)}
+.btn[aria-pressed="true"]{background:var(--blue-soft);border-color:var(--blue);color:var(--blue)}
+#menu-btn{display:none}
+@media (max-width:899px){#menu-btn{display:inline-block}}
+
+/* ---------- shell ---------- */
+.shell{max-width:1180px;margin:0 auto;padding:0 1.1rem 5rem;display:grid;gap:2.5rem;grid-template-columns:1fr}
+@media (min-width:900px){.shell{grid-template-columns:15.5rem 1fr;gap:3rem}}
+
+/* ---------- contents rail ---------- */
+.rail{font-family:var(--sans);font-size:.85rem}
+@media (min-width:900px){
+  .rail{position:sticky;top:4.2rem;align-self:start;max-height:calc(100vh - 6rem);overflow:auto;padding:2.2rem 0}
+}
+@media (max-width:899px){
+  .rail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:1rem;margin-top:1.2rem}
+  .rail[hidden]{display:none}
+}
+.rail h4{font-size:.78rem;color:var(--muted);font-weight:500;margin-bottom:.6rem}
+.rail ol{list-style:none;margin:0 0 1.4rem;padding:0;border-left:1px solid var(--rule)}
+.rail a{display:block;padding:.28rem .8rem;color:var(--muted);text-decoration:none;border-left:2px solid transparent;margin-left:-1px}
+.rail a:hover{color:var(--ink)}
+.rail a.on{color:var(--blue);border-left-color:var(--blue);font-weight:500}
+
+/* ---------- hero ---------- */
+.hero{
+  padding:3.2rem 0 2.4rem;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:26px 26px;background-position:center;
+  border-bottom:1px solid var(--rule);margin-bottom:2.4rem;
+}
+.hero-week{font-family:var(--mono);font-size:.82rem;color:var(--mark);margin-bottom:.9rem}
+.hero h1{font-size:clamp(2.1rem,6vw,3.5rem);max-width:16ch}
+.hero p{max-width:60ch;color:var(--muted);margin:1rem 0 0}
+.pair{display:grid;gap:1rem;margin-top:2.2rem}
+@media (min-width:620px){.pair{grid-template-columns:1fr 1fr}}
+.key{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:1.2rem 1.3rem}
+.key h3{font-size:1.05rem;margin-bottom:.7rem}
+.key .big{font-family:var(--mono);font-size:clamp(1.3rem,4.2vw,1.7rem);color:var(--blue);line-height:1.5}
+.key small{display:block;color:var(--muted);font-family:var(--serif);font-size:.92rem;margin-top:.7rem}
+
+/* ---------- sections ---------- */
+main{padding-top:0}
+section{margin-bottom:3.4rem;max-width:74ch}
+.part{
+  font-family:var(--mono);font-size:.82rem;color:var(--mark);
+  padding-top:1.4rem;border-top:2px solid var(--ink);margin:4rem 0 .5rem;
+}
+h2{font-size:clamp(1.55rem,4.5vw,2.1rem);margin-bottom:.4rem}
+h3{font-size:1.2rem;margin:2rem 0 .6rem}
+h3 .n{font-family:var(--mono);font-size:.85rem;color:var(--muted);font-weight:400;margin-right:.5rem}
+p{margin:.8rem 0}
+ul{margin:.8rem 0;padding-left:1.2rem}
+li{margin:.3rem 0}
+
+/* ---------- math bits ---------- */
+.fr{display:inline-flex;flex-direction:column;vertical-align:-.62em;text-align:center;line-height:1.25}
+.fr i{font-style:normal;padding:0 .35em}
+.fr i:first-child{border-bottom:1.6px solid currentColor}
+.f{
+  font-family:var(--mono);font-size:.98rem;background:var(--blue-soft);
+  border-radius:10px;padding:.95rem 1.1rem;margin:1rem 0;color:var(--ink);
+  overflow-x:auto;
+}
+.f b{color:var(--blue);font-weight:500}
+.ex{border-left:3px solid var(--rule);padding:.15rem 0 .15rem 1.1rem;margin:1.2rem 0}
+.ex h4{font-family:var(--sans);font-size:.9rem;color:var(--muted);font-weight:500;margin-bottom:.35rem}
+.res{font-family:var(--mono);color:var(--mark);font-size:.95rem}
+.trap{background:var(--mark-soft);border-radius:10px;padding:1rem 1.15rem;margin:1.2rem 0}
+.trap h4{font-family:var(--sans);font-size:.92rem;color:var(--mark);margin-bottom:.35rem}
+
+table{border-collapse:collapse;width:100%;margin:1.1rem 0;font-family:var(--mono);font-size:.92rem}
+.tw{overflow-x:auto}
+th,td{text-align:left;padding:.42rem .6rem;border-bottom:1px solid var(--rule)}
+th{font-family:var(--sans);font-size:.8rem;color:var(--muted);font-weight:500}
+
+.alpha{display:grid;grid-template-columns:repeat(auto-fill,minmax(3.1rem,1fr));gap:.3rem;margin:1.1rem 0;font-family:var(--mono)}
+.alpha div{background:var(--surface);border:1px solid var(--rule);border-radius:7px;padding:.4rem 0;text-align:center;font-size:.9rem}
+.alpha div b{display:block;color:var(--blue);font-size:1.02rem;font-weight:500}
+.alpha div span{color:var(--muted);font-size:.78rem}
+
+/* ---------- question sets ---------- */
+.qset{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:1.2rem 1.3rem;margin:1.4rem 0}
+.qhead{display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap;margin-bottom:.4rem}
+.qhead h4{font-family:var(--sans);font-size:1rem}
+.qhead .lv{font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+.qset ol{margin:.6rem 0 0;padding-left:1.4rem}
+.qset li{margin:.42rem 0;padding-right:.2rem}
+.a{
+  display:inline-block;font-family:var(--mono);font-size:.9rem;color:var(--mark);
+  background:var(--mark-soft);border-radius:5px;padding:0 .4rem;margin-left:.45rem;
+  visibility:hidden;opacity:0;
+}
+.qset.open .a{visibility:visible;opacity:1;transition:opacity .18s ease}
+.qset .btn{margin-top:1rem}
+
+/* ---------- summary ---------- */
+.board{background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--blue);border-radius:12px;padding:1.4rem 1.5rem}
+.board h3{margin-top:1.4rem}
+.board h3:first-of-type{margin-top:.6rem}
+footer{max-width:74ch;color:var(--muted);font-size:.9rem;border-top:1px solid var(--rule);padding-top:1.2rem}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-in">
+    <div class="bar-title">Week 3 <span>· Aptitude &amp; Reasoning</span></div>
+    <div class="bar-sp"></div>
+    <button class="btn" id="menu-btn" aria-expanded="false">Contents</button>
+    <button class="btn" id="all-btn" aria-pressed="false">Show all answers</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="shell" style="padding-bottom:0">
+    <div></div>
+    <div>
+      <div class="hero-week">Week 3 of the placement training series</div>
+      <h1>Percentages and Coding–Decoding</h1>
+      <p>Percentages carry forward into profit &amp; loss, interest, averages and data interpretation, so this
+      week is worth getting solid. Coding–decoding builds the pattern recognition that the reasoning section runs on.</p>
+      <div class="pair">
+        <div class="key">
+          <h3>The whole of percentages</h3>
+          <div class="big">25% = <span class="fr"><i>25</i><i>100</i></span> = <span class="fr"><i>1</i><i>4</i></span></div>
+          <small>Every question below is this one idea, rearranged.</small>
+        </div>
+        <div class="key">
+          <h3>The whole of coding</h3>
+          <div class="big">CAT → DBU</div>
+          <small>Find the rule first. Never assume it.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+  <nav class="rail" id="rail" aria-label="Contents">
+    <h4>Part A — Aptitude</h4>
+    <ol>
+      <li><a href="#basics">Meaning and basic formula</a></li>
+      <li><a href="#convert">Converting between forms</a></li>
+      <li><a href="#of">Percentage of a number</a></li>
+      <li><a href="#shortcuts">Shortcuts worth memorising</a></li>
+      <li><a href="#reverse">Working backwards</a></li>
+      <li><a href="#change">Increase and decrease</a></li>
+      <li><a href="#successive">Successive changes</a></li>
+      <li><a href="#applied">Marks, salary, population</a></li>
+      <li><a href="#p-practice">Practice</a></li>
+    </ol>
+    <h4>Part B — Reasoning</h4>
+    <ol>
+      <li><a href="#cd-what">What coding–decoding is</a></li>
+      <li><a href="#positions">Alphabet positions</a></li>
+      <li><a href="#shift">Shift coding</a></li>
+      <li><a href="#number">Number and reverse coding</a></li>
+      <li><a href="#word">Word and statement coding</a></li>
+      <li><a href="#method">A method that works</a></li>
+      <li><a href="#cd-practice">Practice</a></li>
+    </ol>
+    <h4>Close of class</h4>
+    <ol>
+      <li><a href="#test">Final test</a></li>
+      <li><a href="#board">Board summary</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+  <div class="part">Part A — Aptitude</div>
+  <h2 id="basics">Percentages</h2>
+
+  <section>
+    <h3><span class="n">1</span>What percentage means</h3>
+    <p>Percent means <em>per hundred</em> — out of 100. Whenever the % symbol appears, read it as “out of 100”.</p>
+    <div class="f">25% = <span class="fr"><i>25</i><i>100</i></span> = <b><span class="fr"><i>1</i><i>4</i></span></b></div>
+
+    <h3><span class="n">2</span>The basic formula</h3>
+    <div class="f">Percentage = <span class="fr"><i>Part</i><i>Whole</i></span> × 100</div>
+    <div class="ex">
+      <h4>Example</h4>
+      <p>A class has 40 students and 20 are present. What percentage are present?</p>
+      <p class="res">20 ÷ 40 × 100 = 50%</p>
+    </div>
+
+    <h3 id="convert"><span class="n">3</span>Percentage to fraction</h3>
+    <p>These ten conversions should become instant. Most speed in an aptitude paper comes from recognising the fraction instead of multiplying.</p>
+    <div class="tw">
+    <table>
+      <tr><th>%</th><td>10</td><td>20</td><td>25</td><td>30</td><td>40</td><td>50</td><td>60</td><td>75</td><td>80</td><td>90</td><td>100</td></tr>
+      <tr><th>Fraction</th><td>1/10</td><td>1/5</td><td>1/4</td><td>3/10</td><td>2/5</td><td>1/2</td><td>3/5</td><td>3/4</td><td>4/5</td><td>9/10</td><td>1</td></tr>
+    </table>
+    </div>
+    <div class="ex">
+      <h4>Example</h4>
+      <p>Find 25% of 800. Since 25% is one quarter, divide.</p>
+      <p class="res">800 ÷ 4 = 200</p>
+    </div>
+
+    <h3><span class="n">4</span>Fraction to percentage</h3>
+    <div class="f">Percentage = <span class="fr"><i>Numerator</i><i>Denominator</i></span> × 100</div>
+    <p class="res">3/5 × 100 = 60%  ·  1/4 × 100 = 25%</p>
+
+    <h3><span class="n">5</span>Decimals both ways</h3>
+    <p>Decimal to percentage, multiply by 100. Percentage to decimal, divide by 100.</p>
+    <p class="res">0.25 → 25%  ·  0.75 → 75%  ·  35% → 0.35</p>
+  </section>
+
+  <section id="of">
+    <h3><span class="n">6</span>Finding a percentage of a number</h3>
+    <p>This is the single most common question type in the paper.</p>
+    <div class="ex">
+      <h4>Example — the long way</h4>
+      <p class="res">20% of 500 = 20/100 × 500 = 100</p>
+      <h4 style="margin-top:.7rem">The same thing, faster</h4>
+      <p>20% is one fifth, so 500 ÷ 5 = <span class="res">100</span></p>
+    </div>
+
+    <h3 id="shortcuts"><span class="n">7</span>Shortcuts worth memorising</h3>
+    <div class="tw">
+    <table>
+      <tr><th>Percentage</th><th>Do this</th><th>Example</th></tr>
+      <tr><td>10%</td><td>move the decimal one place left</td><td>10% of 500 = 50</td></tr>
+      <tr><td>5%</td><td>half of 10%</td><td>5% of 500 = 25</td></tr>
+      <tr><td>20%</td><td>divide by 5</td><td>20% of 500 = 100</td></tr>
+      <tr><td>25%</td><td>divide by 4</td><td>25% of 800 = 200</td></tr>
+      <tr><td>50%</td><td>divide by 2</td><td>50% of 600 = 300</td></tr>
+      <tr><td>75%</td><td>× 3, ÷ 4</td><td>75% of 800 = 600</td></tr>
+    </table>
+    </div>
+
+    <h3 id="reverse"><span class="n">8</span>“X is what percentage of Y?”</h3>
+    <p class="res">20 of 80 → 20/80 × 100 = 25%  ·  45 of 90 → 50%</p>
+
+    <h3><span class="n">9</span>Finding the whole</h3>
+    <p>When a percentage of an unknown number is given, work back to 100%.</p>
+    <div class="ex">
+      <h4>Example</h4>
+      <p>20% of a number is 50. Find the number.</p>
+      <p class="res">20/100 × x = 50 → x = 250</p>
+      <p>Shortcut: if 20% = 50, then 100% = 50 × 100 ÷ 20 = <span class="res">250</span></p>
+    </div>
+  </section>
+
+  <section id="change">
+    <h3><span class="n">10</span>Percentage increase and decrease</h3>
+    <div class="f">Increase % = <span class="fr"><i>Increase</i><i>Original</i></span> × 100    Decrease % = <span class="fr"><i>Decrease</i><i>Original</i></span> × 100</div>
+    <div class="ex">
+      <h4>Increase</h4>
+      <p>Salary ₹10,000 → ₹12,000. Increase is 2,000.</p>
+      <p class="res">2000 / 10000 × 100 = 20% increase</p>
+      <h4 style="margin-top:.7rem">Decrease</h4>
+      <p>Price ₹800 → ₹600. Decrease is 200.</p>
+      <p class="res">200 / 800 × 100 = 25% decrease</p>
+    </div>
+
+    <div class="trap">
+      <h4>The trap examiners rely on</h4>
+      <p style="margin:.2rem 0">Change is always measured against the <strong>original</strong> value, so the two directions are not the same percentage.</p>
+      <p class="res" style="margin:.4rem 0 0">100 → 120 is a 20% increase. 120 → 100 is a 16.67% decrease.</p>
+    </div>
+
+    <h3 id="successive"><span class="n">11</span>Successive changes</h3>
+    <p>A 20% rise followed by a 10% rise is not 30%. The second change acts on the already-increased value.</p>
+    <div class="f">Net change = a + b + <span class="fr"><i>ab</i><i>100</i></span>  →  20 + 10 + <b>2</b> = <b>32%</b></div>
+    <div class="ex">
+      <h4>Check it on ₹100</h4>
+      <p>₹100 → ₹120 → ₹132. That is a 32% increase, exactly as the formula says.</p>
+    </div>
+
+    <h3><span class="n">12</span>Equal increase then decrease</h3>
+    <p>Up 20% then down 20% does not return you to where you started.</p>
+    <div class="ex">
+      <p>₹100 → ₹120 → take away 20% of 120, which is ₹24 → ₹96.</p>
+      <p class="res">Net result: 4% decrease</p>
+    </div>
+    <div class="f">Net decrease = <span class="fr"><i>x²</i><i>100</i></span>  →  <span class="fr"><i>20²</i><i>100</i></span> = <b>4%</b></div>
+  </section>
+
+  <section id="applied">
+    <h3><span class="n">13</span>Where it shows up</h3>
+    <div class="tw">
+    <table>
+      <tr><th>Situation</th><th>Working</th><th>Answer</th></tr>
+      <tr><td>360 marks out of 500</td><td>360/500 × 100</td><td>72%</td></tr>
+      <tr><td>Population 50,000 rises 10%</td><td>50,000 + 5,000</td><td>55,000</td></tr>
+      <tr><td>Salary ₹30,000 rises 15%</td><td>30,000 + 4,500</td><td>₹34,500</td></tr>
+    </table>
+    </div>
+  </section>
+
+  <section id="p-practice">
+    <h3>Practice</h3>
+    <p>Attempt each set fully before revealing. The button shows the answers beside the questions.</p>
+
+    <div class="qset">
+      <div class="qhead"><h4>Set 1</h4><span class="lv">basics</span></div>
+      <ol>
+        <li>Find 10% of 500.<span class="a">50</span></li>
+        <li>Find 20% of 800.<span class="a">160</span></li>
+        <li>Find 25% of 400.<span class="a">100</span></li>
+        <li>Find 50% of 600.<span class="a">300</span></li>
+        <li>Find 75% of 800.<span class="a">600</span></li>
+        <li>Convert 25% into a fraction.<span class="a">1/4</span></li>
+        <li>Convert 3/5 into a percentage.<span class="a">60%</span></li>
+        <li>Convert 0.45 into a percentage.<span class="a">45%</span></li>
+        <li>Convert 70% into a decimal.<span class="a">0.70</span></li>
+        <li>30 is what percentage of 100?<span class="a">30%</span></li>
+      </ol>
+      <button class="btn reveal" aria-pressed="false">Show answers</button>
+    </div>
+
+    <div class="qset">
+      <div class="qhead"><h4>Set 2</h4><span class="lv">intermediate</span></div>
+      <ol>
+        <li>40 is what percentage of 200?<span class="a">20%</span></li>
+        <li>75 is what percentage of 300?<span class="a">25%</span></li>
+        <li>20% of a number is 80. Find the number.<span class="a">400</span></li>
+        <li>25% of a number is 150. Find the number.<span class="a">600</span></li>
+        <li>A student scores 420 out of 600. Find the percentage.<span class="a">70%</span></li>
+        <li>₹500 increases by 20%. Find the new price.<span class="a">₹600</span></li>
+        <li>₹800 decreases by 25%. Find the new price.<span class="a">₹600</span></li>
+        <li>A salary of ₹20,000 increases by 10%.<span class="a">₹22,000</span></li>
+        <li>A population of 40,000 increases by 15%.<span class="a">46,000</span></li>
+        <li>A number increases from 200 to 250. Find the increase %.<span class="a">25%</span></li>
+      </ol>
+      <button class="btn reveal" aria-pressed="false">Show answers</button>
+    </div>
+
+    <div class="qset">
+      <div class="qhead"><h4>Set 3</h4><span class="lv">advanced</span></div>
+      <ol>
+        <li>A number rises 20%, then 10%. Total increase?<span class="a">32%</span></li>
+        <li>A number falls 20%, then 10%. Total decrease?<span class="a">28%</span></li>
+        <li>A number rises 20%, then falls 20%. Net change?<span class="a">4% decrease</span></li>
+        <li>₹25,000 rises 20%, then 10%. Final salary?<span class="a">₹33,000</span></li>
+        <li>₹10,000 falls 10%, then 20%. Final price?<span class="a">₹7,200</span></li>
+        <li>Marks rise from 400 to 460. Increase %?<span class="a">15%</span></li>
+        <li>A number falls from 500 to 425. Decrease %?<span class="a">15%</span></li>
+        <li>40% of a number is 160. Find the number.<span class="a">400</span></li>
+        <li>35% of a number is 140. Find the number.<span class="a">400</span></li>
+        <li>Price rises ₹2,000 → ₹2,500. Increase %?<span class="a">25%</span></li>
+      </ol>
+      <button class="btn reveal" aria-pressed="false">Show answers</button>
+    </div>
+  </section>
+
+  <div class="part">Part B — Reasoning</div>
+  <h2 id="cd-what">Coding–Decoding</h2>
+
+  <section>
+    <p>A word, letter or number is changed according to a hidden rule. The work is to discover the rule from the example given, then apply it to something else.</p>
+    <div class="ex">
+      <h4>Example</h4>
+      <p class="res">CAT → DBU</p>
+      <p>C→D, A→B, T→U. Every letter moved one position forward.</p>
+    </div>
+
+    <h3 id="positions"><span class="n">1</span>Alphabet positions</h3>
+    <p>Without these, nothing else in this topic works. Write them out until recall is automatic.</p>
+    <div class="alpha">
+      <div><b>A</b><span>1</span></div><div><b>B</b><span>2</span></div><div><b>C</b><span>3</span></div><div><b>D</b><span>4</span></div>
+      <div><b>E</b><span>5</span></div><div><b>F</b><span>6</span></div><div><b>G</b><span>7</span></div><div><b>H</b><span>8</span></div>
+      <div><b>I</b><span>9</span></div><div><b>J</b><span>10</span></div><div><b>K</b><span>11</span></div><div><b>L</b><span>12</span></div>
+      <div><b>M</b><span>13</span></div><div><b>N</b><span>14</span></div><div><b>O</b><span>15</span></div><div><b>P</b><span>16</span></div>
+      <div><b>Q</b><span>17</span></div><div><b>R</b><span>18</span></div><div><b>S</b><span>19</span></div><div><b>T</b><span>20</span></div>
+      <div><b>U</b><span>21</span></div><div><b>V</b><span>22</span></div><div><b>W</b><span>23</span></div><div><b>X</b><span>24</span></div>
+      <div><b>Y</b><span>25</span></div><div><b>Z</b><span>26</span></div>
+    </div>
+
+    <h3 id="shift"><span class="n">2</span>Shift coding — forward and backward</h3>
+    <div class="tw">
+    <table>
+      <tr><th>Rule</th><th>CAT becomes</th><th>Why</th></tr>
+      <tr><td>+1</td><td>DBU</td><td>each letter one step forward</td></tr>
+      <tr><td>+2</td><td>ECV</td><td>each letter two steps forward</td></tr>
+      <tr><td>−1</td><td>BZS</td><td>each letter one step back; A wraps to Z</td></tr>
+    </table>
+    </div>
+    <div class="trap">
+      <h4>Watch the wrap</h4>
+      <p style="margin:.2rem 0">A moving back becomes Z, and Z moving forward becomes A. The alphabet is a circle, not a line.</p>
+    </div>
+
+    <h3 id="number"><span class="n">3</span>Number coding</h3>
+    <p>Replace each letter with its position.</p>
+    <p class="res">CAT = 3-1-20  ·  DOG = 4-15-7  ·  PEN = 16-5-14</p>
+
+    <h3><span class="n">4</span>Reverse alphabet coding</h3>
+    <p>Here A = 26, B = 25, and so on down to Z = 1. You never need to memorise a second list — subtract from 27.</p>
+    <div class="f">Reverse position = <b>27 − forward position</b>    C = 27 − 3 = <b>24</b></div>
+    <p class="res">CAT = 24-26-7</p>
+
+    <h3 id="word"><span class="n">5</span>Word coding by relationship</h3>
+    <p>Sometimes the whole word maps to a single number, and the rule is a relationship rather than a shift.</p>
+    <div class="ex">
+      <h4>Example</h4>
+      <p>If CAT = 24 and DOG = 26, the rule is the sum of alphabet positions.</p>
+      <p class="res">C+A+T = 3+1+20 = 24  ·  D+O+G = 4+15+7 = 26</p>
+    </div>
+
+    <h3><span class="n">6</span>Coding from a given example</h3>
+    <div class="ex">
+      <h4>Example</h4>
+      <p>If APPLE → BQQMF, find the code for MANGO.</p>
+      <p>A→B, P→Q, L→M, E→F, so the rule is +1. Applying it:</p>
+      <p class="res">MANGO → NBOHP</p>
+    </div>
+
+    <h3><span class="n">7</span>Coding through statements</h3>
+    <p>Two coded statements are given and you find the code for one word by matching what they share.</p>
+    <div class="ex">
+      <h4>Example</h4>
+      <p>“red blue green” = “ka la ma” and “blue yellow” = “la pa”. What is the code for blue?</p>
+      <p>The only common word is blue; the only common code is la.</p>
+      <p class="res">blue = la</p>
+    </div>
+
+    <h3 id="method"><span class="n">8</span>A method that stops the guessing</h3>
+    <p>Run through this order every time rather than testing rules at random.</p>
+    <ul>
+      <li>Write out A = 1 to Z = 26 in the margin.</li>
+      <li>Place the original and the coded letters side by side.</li>
+      <li>Test +1, then +2 or +3.</li>
+      <li>Test −1, then −2.</li>
+      <li>Test the reverse alphabet.</li>
+      <li>Test numerical values and their sum.</li>
+      <li>If none fit, look for a word relationship instead of a letter rule.</li>
+    </ul>
+  </section>
+
+  <section id="cd-practice">
+    <h3>Practice</h3>
+
+    <div class="qset">
+      <div class="qhead"><h4>Set 4</h4><span class="lv">easy</span></div>
+      <ol>
+        <li>With A=1 … Z=26, code CAT.<span class="a">3-1-20</span></li>
+        <li>With A=1 … Z=26, code DOG.<span class="a">4-15-7</span></li>
+        <li>Each letter +1: code CAT.<span class="a">DBU</span></li>
+        <li>Each letter +1: code DOG.<span class="a">EPH</span></li>
+        <li>Each letter −1: code CAT.<span class="a">BZS</span></li>
+        <li>Each letter +2: code BAT.<span class="a">DCV</span></li>
+        <li>Position of M?<span class="a">13</span></li>
+        <li>Position of T?<span class="a">20</span></li>
+        <li>Reverse position of C?<span class="a">24</span></li>
+        <li>Reverse position of Z?<span class="a">1</span></li>
+      </ol>
+      <button class="btn reveal" aria-pressed="false">Show answers</button>
+    </div>
+
+    <div class="qset">
+      <div class="qhead"><h4>Set 5</h4><span class="lv">medium</span></div>
+      <ol>
+        <li>If BAT → CBU, code DOG.<span class="a">EPH</span></li>
+        <li>If DOG → EPH, code CAT.<span class="a">DBU</span></li>
+        <li>If PEN → QFO, what is the rule?<span class="a">+1</span></li>
+        <li>If SUN → RTM, what is the rule?<span class="a">−1</span></li>
+        <li>With A=1 … Z=26, find the value of BAD.<span class="a">7</span></li>
+        <li>Find the value of PEN.<span class="a">35</span></li>
+        <li>Find the reverse code of DOG.<span class="a">23-12-20</span></li>
+        <li>Each letter +2: code PEN.<span class="a">RGP</span></li>
+        <li>Each letter −2: code DOG.<span class="a">BME</span></li>
+        <li>If CAT = 24 by sum of positions, find BAT.<span class="a">23</span></li>
+      </ol>
+      <button class="btn reveal" aria-pressed="false">Show answers</button>
+    </div>
+
+    <div class="qset">
+      <div class="qhead"><h4>Set 6</h4><span class="lv">shift drill — code each word</span></div>
+      <ol>
+        <li>+1: DOG, BAT, PEN, SUN, CAR<span class="a">EPH, CBU, QFO, TVO, DBS</span></li>
+        <li>+2: DOG, BAT, PEN, SUN, CAR<span class="a">FQI, DCV, RGP, UWP, ECT</span></li>
+        <li>−1: DOG, BAT, PEN, SUN, CAR<span class="a">CNF, AZS, ODM, RTM, BZQ</span></li>
+        <li>Number code: DOG, BAT, PEN, SUN, CAR<span class="a">4-15-7, 2-1-20, 16-5-14, 19-21-14, 3-1-18</span></li>
+      </ol>
+      <button class="btn reveal" aria-pressed="false">Show answers</button>
+    </div>
+  </section>
+
+  <div class="part">Close of class</div>
+  <h2 id="test">Final test</h2>
+
+  <section>
+    <div class="qset">
+      <div class="qhead"><h4>Section A</h4><span class="lv">percentages</span></div>
+      <ol>
+        <li>Find 25% of 400.<span class="a">100</span></li>
+        <li>Find 15% of 200.<span class="a">30</span></li>
+        <li>40 is what percentage of 160?<span class="a">25%</span></li>
+        <li>30% of a number is 90. Find the number.<span class="a">300</span></li>
+        <li>Convert 3/4 into a percentage.<span class="a">75%</span></li>
+        <li>₹500 increases by 20%. Find the new price.<span class="a">₹600</span></li>
+        <li>₹800 decreases by 25%. Find the new price.<span class="a">₹600</span></li>
+        <li>A number increases from 200 to 240. Increase %?<span class="a">20%</span></li>
+        <li>A number decreases from 500 to 400. Decrease %?<span class="a">20%</span></li>
+        <li>A number rises 20%, then 10%. Total increase?<span class="a">32%</span></li>
+      </ol>
+      <button class="btn reveal" aria-pressed="false">Show answers</button>
+    </div>
+
+    <div class="qset">
+      <div class="qhead"><h4>Section B</h4><span class="lv">coding–decoding</span></div>
+      <ol start="11">
+        <li>With A=1 … Z=26, code CAT.<span class="a">3-1-20</span></li>
+        <li>Each letter +1: code DOG.<span class="a">EPH</span></li>
+        <li>Each letter −1: code BAT.<span class="a">AZS</span></li>
+        <li>Each letter +2: code PEN.<span class="a">RGP</span></li>
+        <li>Position of R?<span class="a">18</span></li>
+        <li>Reverse position of D?<span class="a">23</span></li>
+        <li>If CAT → DBU, what is the rule?<span class="a">+1</span></li>
+        <li>If DOG → EPH, code CAT.<span class="a">DBU</span></li>
+        <li>If CAT = 24 by sum of positions, find DOG.<span class="a">26</span></li>
+        <li>With A=26 … Z=1, code CAT.<span class="a">24-26-7</span></li>
+      </ol>
+      <button class="btn reveal" aria-pressed="false">Show answers</button>
+    </div>
+  </section>
+
+  <section id="board">
+    <h2 style="margin-bottom:.8rem">Board summary</h2>
+    <p>Ask students to copy these into their notebooks before leaving.</p>
+    <div class="board">
+      <h3>Percentages</h3>
+      <div class="f" style="background:transparent;padding:0;margin:.5rem 0">
+        Percentage = <span class="fr"><i>Part</i><i>Whole</i></span> × 100<br><br>
+        Part = <span class="fr"><i>Percentage × Whole</i><i>100</i></span><br><br>
+        Increase % = <span class="fr"><i>Increase</i><i>Original</i></span> × 100<br><br>
+        Decrease % = <span class="fr"><i>Decrease</i><i>Original</i></span> × 100<br><br>
+        Successive changes: a + b + <span class="fr"><i>ab</i><i>100</i></span><br><br>
+        Equal rise then fall: net decrease = <span class="fr"><i>x²</i><i>100</i></span>
+      </div>
+      <h3>Coding–Decoding</h3>
+      <div class="f" style="background:transparent;padding:0;margin:.5rem 0">
+        A = 1, B = 2, … Z = 26<br><br>
+        Reverse position = 27 − forward position
+      </div>
+      <p style="margin-bottom:0"><strong>And the rule that covers every question:</strong> discover the coding rule from the example given. Do not assume it.</p>
+    </div>
+  </section>
+
+  <footer>
+    Week 3 · Aptitude and Reasoning · Department of Artificial Intelligence, SVPCET
+  </footer>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  var sets = Array.prototype.slice.call(document.querySelectorAll('.qset'));
+
+  function setOpen(set, open){
+    set.classList.toggle('open', open);
+    var b = set.querySelector('.reveal');
+    b.setAttribute('aria-pressed', open ? 'true' : 'false');
+    b.textContent = open ? 'Hide answers' : 'Show answers';
+  }
+
+  sets.forEach(function(set){
+    set.querySelector('.reveal').addEventListener('click', function(){
+      setOpen(set, !set.classList.contains('open'));
+      syncAll();
+    });
+  });
+
+  var allBtn = document.getElementById('all-btn');
+  function syncAll(){
+    var every = sets.every(function(s){ return s.classList.contains('open'); });
+    allBtn.setAttribute('aria-pressed', every ? 'true' : 'false');
+    allBtn.textContent = every ? 'Hide all answers' : 'Show all answers';
+  }
+  allBtn.addEventListener('click', function(){
+    var open = allBtn.getAttribute('aria-pressed') !== 'true';
+    sets.forEach(function(s){ setOpen(s, open); });
+    syncAll();
+  });
+
+  // Contents toggle on small screens
+  var rail = document.getElementById('rail'), menu = document.getElementById('menu-btn');
+  function small(){ return window.matchMedia('(max-width:899px)').matches; }
+  function applyRail(){
+    if(small()){ rail.hidden = menu.getAttribute('aria-expanded') !== 'true'; }
+    else { rail.hidden = false; }
+  }
+  menu.addEventListener('click', function(){
+    menu.setAttribute('aria-expanded', menu.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+    applyRail();
+  });
+  rail.addEventListener('click', function(e){
+    if(e.target.tagName === 'A' && small()){ menu.setAttribute('aria-expanded','false'); applyRail(); }
+  });
+  window.addEventListener('resize', applyRail);
+  applyRail();
+
+  // Highlight the section being read
+  var links = Array.prototype.slice.call(rail.querySelectorAll('a'));
+  var targets = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id); });
+      });
+    }, { rootMargin: '-15% 0px -70% 0px' });
+    targets.forEach(function(t){ io.observe(t); });
+  }
+})();
+</script>
+</body>
+</html>
