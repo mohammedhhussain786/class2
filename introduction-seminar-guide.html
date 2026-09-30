@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B.Tech Self-Introduction and Seminar Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f6f9;--card:#fff;--ink:#16233f;--mut:#5a6784;--acc:#0b7a75;--hi:#f0a531;--line:#d9e0ea;--soft:#e4f3f1}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0f1729;--card:#18233d;--ink:#e8edf7;--mut:#9aa8c6;--acc:#4cc3bb;--hi:#f0a531;--line:#2b3a5c;--soft:#173840}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Source Sans 3",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.15;margin:0 0 .5em}
+header{background:var(--ink);color:#f3f6f9;padding:48px 20px 40px}
+header .w{max-width:960px;margin:auto}
+header h1{font-size:clamp(2rem,6vw,3.4rem);font-weight:800;max-width:14em}
+header p{max-width:36em;color:#c5d0e6;margin:0 0 20px}
+.btn{background:var(--hi);color:#16233f;border:0;padding:10px 18px;border-radius:8px;font:600 16px inherit;cursor:pointer}
+.btn:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+nav{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--line);z-index:5;overflow-x:auto;white-space:nowrap}
+nav .w{max-width:960px;margin:auto;padding:0 12px}
+nav a{display:inline-block;padding:14px 12px;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+nav a:hover{color:var(--acc)}
+main{max-width:960px;margin:auto;padding:8px 20px 60px}
+section{padding-top:36px}
+h2{font-size:1.9rem}
+.lead{color:var(--mut);max-width:42em}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+.box h3{font-size:1.05rem;margin-bottom:.3em}
+ol.steps{list-style:none;padding:0;margin:0;counter-reset:s}
+ol.steps>li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:10px;padding:16px 18px 16px 62px;margin-bottom:12px;position:relative}
+ol.steps>li::before{content:counter(s);position:absolute;left:16px;top:14px;width:32px;height:32px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font:800 15px "Bricolage Grotesque"}
+.say{background:var(--soft);border-radius:8px;padding:10px 14px;margin:8px 0 0;font-style:italic}
+.tag{display:inline-block;background:var(--soft);color:var(--acc);border-radius:20px;padding:1px 10px;font-size:14px;margin:2px 4px 2px 0;font-weight:600}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{padding:9px 14px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--soft)}
+td:last-child,th:last-child{text-align:right}
+.scroll{overflow-x:auto}
+#q{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit;margin:8px 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 14px;border-radius:20px;cursor:pointer;font:600 14px inherit}
+.chip[aria-pressed=true]{background:var(--acc);color:#fff;border-color:var(--acc)}
+.tp b{color:var(--acc)}
+.tp small{color:var(--mut);display:block}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 16px;margin-bottom:8px}
+summary{cursor:pointer;font-weight:600}
+.do li::marker{color:var(--acc)}.dont li::marker{color:#d64545}
+.check label{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--acc);flex:none;margin-top:3px}
+#prog{font-weight:600;color:var(--acc)}
+footer{text-align:center;color:var(--mut);padding:24px}
+@media print{nav,.btn,#q,.chips{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<header><div class="w">
+<h1>Self-Introduction and Technical Seminar Guide</h1>
+<p>A clear step-by-step process for B.Tech students: how to introduce yourself for 10 minutes and how to present a 10-minute technical seminar with confidence.</p>
+<button class="btn" onclick="window.print()">Print or save as PDF</button>
+</div></header>
+<nav aria-label="Sections"><div class="w">
+<a href="#obj">Objective</a><a href="#a">Part A: Introduction</a><a href="#time">Timing</a><a href="#b">Part B: Seminar</a><a href="#topics">60 Topics</a><a href="#rules">Rules</a><a href="#marks">Marks</a><a href="#check">Checklist</a>
+</div></nav>
+<main>
+
+<section id="obj"><h2>What you will improve</h2>
+<div class="grid" id="objs"></div></section>
+
+<section id="a"><h2>Part A: Self-introduction (minimum 10 minutes)</h2>
+<p class="lead">Speak naturally. Do not read from paper or slides. Follow these 10 steps in order. Each step has a sample you can adapt to your own life.</p>
+<ol class="steps" id="astep"></ol></section>
+
+<section id="time"><h2>10-minute time plan</h2>
+<div class="scroll"><table><thead><tr><th>Section</th><th>Time</th></tr></thead><tbody id="tt"></tbody></table></div></section>
+
+<section id="b"><h2>Part B: Technical seminar (minimum 10 minutes)</h2>
+<p class="lead">Choose one topic, get faculty approval, and prepare 8 to 12 slides. Below is the 11-slide format, with a worked example for the topic <b>Cloud Computing</b>.</p>
+<ol class="steps" id="bstep"></ol>
+<h3>Preparation process</h3>
+<ol id="prep"></ol></section>
+
+<section id="topics"><h2>Seminar topics with a brief example</h2>
+<p class="lead">Pick one topic and confirm it with your faculty. Each card shows a real-life example you can start your slides with.</p>
+<input id="q" type="search" placeholder="Search topics, for example: cloud, AI, UPI" aria-label="Search topics">
+<div class="chips" id="chips"></div>
+<div class="grid" id="tgrid"></div></section>
+
+<section id="rules"><h2>Presentation rules</h2>
+<div class="grid">
+<div class="box"><h3>You should</h3><ul class="do" id="do"></ul></div>
+<div class="box"><h3>You should not</h3><ul class="dont" id="dont"></ul></div>
+</div></section>
+
+<section id="marks"><h2>How you will be assessed</h2>
+<div class="scroll"><table><thead><tr><th>Criteria</th><th>Marks</th></tr></thead><tbody id="mt"></tbody></table></div></section>
+
+<section id="check" class="check"><h2>Final checklist</h2>
+<p class="lead">Tick each item before you present. <span id="prog">0 of 11 ready</span></p>
+<div id="cl"></div>
+<p><b>Remember:</b> the goal is confidence, communication, technical understanding and professional presentation, not only completing a seminar. All the best!</p></section>
+</main>
+<footer>B.Tech Communication and Seminar Activity</footer>
+
+<script>
+var $=function(i){return document.getElementById(i)};
+function li(a,f){return a.map(f).join("")}
+
+$("objs").innerHTML=li(["Communication skills","Public speaking and presentation","Self-confidence","Technical knowledge","Problem-solving and explanation","Explaining technical ideas in simple English"],function(t){return '<div class="box"><h3>'+t+'</h3></div>'});
+
+var A=[
+["Greeting","Start with a formal, warm greeting and smile.","Good morning everyone. I am very happy to get this opportunity to introduce myself."],
+["Personal introduction","Full name, roll number, branch, year and semester, college, hometown.","My name is Ravi Kumar, roll number 24AI001. I study B.Tech CSE (AI), second year, at SVPCET. I am from Chittoor."],
+["Educational background","School, intermediate or diploma, current B.Tech, academic interests and favourite subjects.","I completed my schooling at ZP High School and Intermediate in MPC. My favourite subject is Python because I can turn ideas into working programs."],
+["Technical skills","Name your skills and explain 2 or 3 of them briefly. Say what you know, not only the names.","I know C, Python and HTML. In Python I can write functions and loops. With HTML and CSS I built my own portfolio page."],
+["Academic project","Follow this order: Project name, Problem, Objective, Technologies, Your role, Result.","My mini project is an Attendance Tracker. Manual attendance wasted class time, so I built a web app using HTML, CSS and Python Flask. I designed the database and the login page. It now saves about five minutes per class."],
+["Strengths","Give 2 or 3 strengths, each with one real example.","I am a quick learner. I learned basic SQL in two weeks from free videos and used it in my project."],
+["Areas for improvement","Name one or two skills you are improving and what you are doing about it.","I am improving my public speaking. I practise in front of a mirror and join group discussions every week."],
+["Hobbies and interests","Do not only list hobbies. Explain why you enjoy them.","I enjoy learning new technologies because every new tool shows me a different way to solve problems. I also play cricket, which taught me teamwork."],
+["Career goals","Give a short-term goal and a long-term goal.","Short term: complete an internship and a Python certification. Long term: become an AI/ML engineer and build tools that help farmers."],
+["Conclusion","End formally and thank the audience.","To conclude, I would like to continuously improve my technical and communication skills and become a responsible professional. Thank you for giving me this opportunity."]
+];
+$("astep").innerHTML=li(A,function(s){return '<li><h3>'+s[0]+'</h3>'+s[1]+'<div class="say">'+s[2]+'</div></li>'});
+
+var T=[["Greeting and personal introduction","1 minute"],["Educational background","1 minute"],["Technical skills","1 to 2 minutes"],["Project or academic experience","2 minutes"],["Strengths and areas for improvement","1 minute"],["Hobbies and interests","1 minute"],["Career goals","1 minute"],["Conclusion","1 minute"]];
+$("tt").innerHTML=li(T,function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'})+'<tr><th>Total</th><th>Minimum 10 minutes</th></tr>';
+
+var B=[
+["Title","Seminar topic, your name, roll number, branch, year and semester.","Cloud Computing. Ravi Kumar, 24AI001, CSE (AI), II Year."],
+["Introduction","What is it, what does it mean, why is it important?","Cloud computing means using servers over the internet instead of owning them. Google Drive and Netflix use it."],
+["Background","How and why the technology developed.","Companies once bought costly servers. Cloud providers began renting computing power so anyone could pay only for what they use."],
+["Working and architecture","Explain how it works. Draw a simple diagram.","User device to internet to data centre servers to storage. Explain each arrow in one sentence."],
+["Types and components","Major types, components or stages.","IaaS, PaaS, SaaS. Public, private and hybrid cloud."],
+["Real-life applications","At least 3 to 5 real examples.","Gmail, Netflix streaming, online exam portals, DigiLocker, UPI back-end systems."],
+["Advantages","Main benefits.","Low cost, easy scaling, access from anywhere, automatic backups."],
+["Limitations","Challenges and disadvantages.","Needs internet, data privacy concerns, vendor lock-in."],
+["Future scope","How it may grow.","Cloud with AI, edge computing and serverless applications."],
+["Conclusion","Summarise the key points in 3 lines.","Cloud gives flexible, low-cost computing, with security as the key challenge."],
+["Questions","End with Thank You and Questions?","Thank you. Questions?"]
+];
+$("bstep").innerHTML=li(B,function(s,i){return '<li><h3>Slide '+(i+1)+': '+s[0]+'</h3>'+s[1]+'<div class="say">'+s[2]+'</div></li>'});
+
+$("prep").innerHTML=li(["Select one topic from the list.","Get the topic approved by faculty.","Collect information from reliable sources.","Understand the topic before you make the PPT.","Prepare about 8 to 12 slides in simple, clear English.","Add diagrams, flowcharts, examples or images.","Include real-world applications and do not copy from the internet.","Practise aloud with a timer. Do not read the slides word for word.","Prepare answers to likely questions from audience and faculty.","Dress professionally and make eye contact."],function(t){return '<li>'+t+'</li>'});
+
+var C={
+"AI and Machine Learning":"AI in Everyday Life|Google Maps traffic prediction, phone face unlock\nGenerative AI|Creating images or text from a short prompt\nLarge Language Models|How a chatbot predicts the next word\nChatGPT and AI Assistants|Asking an assistant to explain a concept or debug code\nMachine Learning and Its Applications|Spam filters, loan approval, crop yield prediction\nDeep Learning|Recognising handwritten digits with many neural layers\nNeural Networks|How neurons, weights and layers learn from data\nComputer Vision|Face detection, reading number plates\nNatural Language Processing|Voice typing, translating Telugu to English\nAI in Healthcare|Detecting disease from X-ray images\nAI in Education|Personalised learning apps and auto-grading\nAI in Cybersecurity|Detecting unusual login behaviour\nAI-Based Recommendation Systems|YouTube and Amazon suggestions\nAI in Autonomous Vehicles|Self-driving cars sensing lanes and pedestrians\nExplainable AI|Showing why a loan was rejected\nEthical Issues in AI|Bias in hiring tools, deepfakes\nFuture of AI|AI co-pilots in every job",
+"Computer Science and Software":"Cloud Computing|Google Drive, AWS, Microsoft Azure\nEdge Computing|Traffic camera analysing video on the spot\nInternet of Things|Smart bulbs, soil sensors for farming\nBlockchain Technology|Tracking certificates or supply chains safely\nQuantum Computing|Solving very hard problems using qubits\nBig Data Analytics|Analysing millions of UPI transactions\nData Science|Predicting sales from past data\nDevOps|Auto-testing and deploying an app after each code change\nMicroservices Architecture|Splitting a shopping app into cart, payment and search services\nSoftware Testing and Automation|Selenium clicking through a login form automatically",
+"Web and Mobile":"Full Stack Web Development|HTML, Node.js and a database in one app\nModern Front-End Development|Responsive pages with CSS and JavaScript\nReact and Its Applications|Facebook and Instagram web interfaces\nProgressive Web Applications|A website that installs and works offline\nMobile Application Development|Android apps built with Flutter or Kotlin\nCloud-Based Web Applications|Google Docs editing with many users at once\nAPIs and Web Services|A weather app calling a weather API\nWeb 3.0|Decentralised apps and digital ownership\nAugmented Reality|Snapchat filters, placing furniture in your room\nVirtual Reality|VR classroom or virtual campus tour",
+"Cybersecurity":"Introduction to Cybersecurity|Protecting data, devices and networks\nEthical Hacking|Authorised testing to find weak points\nPhishing and Social Engineering|A fake bank SMS asking for your OTP\nRansomware|Files locked until a payment is demanded\nPassword Security|Strong passphrases and password managers\nBiometric Authentication|Fingerprint and Aadhaar face authentication\nCloud Security|Access control and encryption for cloud data\nZero Trust Security|Verify every user and device every time\nAI in Cybersecurity|Spotting malware and fraud patterns\nData Privacy and Protection|Consent, and safe handling of personal data",
+"Emerging Technologies":"5G Technology|Fast video calls, remote surgery\n6G Technology|Expected ultra-fast and AI-native networks\nRobotics and Automation|Warehouse robots and factory arms\nDigital Twins|A virtual copy of a machine to predict failures\nGreen Computing|Energy-saving data centres, e-waste recycling\nEdge AI|AI running on a phone without internet\nAI Agents|A software agent that books tickets by itself\nMultimodal AI|One model understanding text, image and audio\nAutonomous Robots|Delivery robots and robot vacuum cleaners\nSmart Cities and Smart Technology|Smart traffic lights, smart street lamps\nDigital Payments and UPI Technology|PhonePe and Google Pay in seconds\nWearable Technology|Smartwatch heart-rate and step tracking\nFuture of Computing|Quantum, neuromorphic and AI chips"
+};
+var all=[],n=0,cur="All";
+Object.keys(C).forEach(function(k){C[k].split("\n").forEach(function(r){var p=r.split("|");n++;all.push({n:n,c:k,t:p[0],e:p[1]})})});
+var cats=["All"].concat(Object.keys(C));
+function drawChips(){$("chips").innerHTML=cats.map(function(c){return '<button class="chip" aria-pressed="'+(c===cur)+'" data-c="'+c+'">'+c+'</button>'}).join("")}
+function drawTopics(){var q=$("q").value.toLowerCase();var r=all.filter(function(x){return(cur==="All"||x.c===cur)&&(x.t+" "+x.e).toLowerCase().indexOf(q)>-1});
+$("tgrid").innerHTML=r.length?r.map(function(x){return '<div class="box tp"><h3>'+x.n+'. '+x.t+'</h3><b>Example:</b> '+x.e+'<small>'+x.c+'</small></div>'}).join(""):'<p>No topic found. Try a different word.</p>'}
+$("chips").addEventListener("click",function(e){var c=e.target.getAttribute("data-c");if(c){cur=c;drawChips();drawTopics()}});
+$("q").addEventListener("input",drawTopics);
+drawChips();drawTopics();
+
+$("do").innerHTML=li(["Speak clearly in simple English","Explain concepts in your own words","Maintain eye contact and stand confidently","Use examples and explain diagrams","Manage time well","Answer questions politely"],function(t){return '<li>'+t+'</li>'});
+$("dont").innerHTML=li(["Read directly from the PPT","Memorise without understanding","Copy large paragraphs onto slides","Use excessive animations","Put too much text on a slide","Depend fully on AI-generated content","Exceed the allotted time"],function(t){return '<li>'+t+'</li>'});
+
+var M=[["Content and technical knowledge",20],["Communication skills",20],["Confidence and body language",15],["PPT quality and organisation",15],["Explanation with examples",10],["Time management",10],["Question and answer",10]];
+$("mt").innerHTML=li(M,function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'})+'<tr><th>Total</th><th>100</th></tr>';
+
+var K=["I can introduce myself for at least 10 minutes.","I know my seminar topic clearly.","I have prepared my PPT.","I understand every slide.","I can explain my topic without reading.","I have included real-life examples.","I know the advantages and limitations.","I can explain the working or architecture.","I can explain the future scope.","I am prepared for questions.","I can finish within the allotted time."];
+$("cl").innerHTML=li(K,function(t,i){return '<label><input type="checkbox" class="ck"> '+t+'</label>'});
+$("cl").addEventListener("change",function(){$("prog").textContent=document.querySelectorAll(".ck:checked").length+" of "+K.length+" ready"});
+</script>
+</body>
+</html>
