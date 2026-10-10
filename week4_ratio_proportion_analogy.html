@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 4 – Ratio & Proportion + Analogy</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1f2937;--muted:#6b7280;--brand:#2563eb;--brand2:#7c3aed;--ok:#059669;--line:#e5e7eb;--soft:#eef2ff;--warn:#fff7ed}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+header.hero{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;padding:48px 20px 40px;text-align:center}
+.hero h1{margin:0 0 6px;font-size:clamp(1.6rem,4vw,2.4rem)}
+.hero p{margin:4px 0;opacity:.92}
+.badge{display:inline-block;background:rgba(255,255,255,.2);padding:4px 14px;border-radius:99px;font-size:.85rem;margin-top:10px}
+nav{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;padding:8px 12px;justify-content:center;flex-wrap:wrap}
+nav a{color:var(--brand);text-decoration:none;font-size:.88rem;padding:6px 12px;border-radius:8px;white-space:nowrap}
+nav a:hover{background:var(--soft)}
+main{max-width:900px;margin:0 auto;padding:20px 16px 60px}
+h2.part{margin:36px 0 12px;font-size:1.6rem;color:var(--brand);border-bottom:3px solid var(--brand);padding-bottom:6px}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+section.card h3{margin:0 0 10px;font-size:1.15rem}
+section.card h3 span{display:inline-block;background:var(--brand);color:#fff;border-radius:8px;padding:0 9px;margin-right:8px;font-size:.95rem}
+.ex{background:var(--soft);border-left:4px solid var(--brand);border-radius:8px;padding:10px 14px;margin:10px 0}
+.ex b.t{color:var(--brand);display:block;margin-bottom:4px}
+.key{background:var(--warn);border-left:4px solid #f59e0b;border-radius:8px;padding:10px 14px;margin:10px 0}
+.ans{background:#ecfdf5;border-left:4px solid var(--ok);border-radius:8px;padding:6px 14px;margin:8px 0;font-weight:600;color:#065f46}
+.math{font-family:ui-monospace,Consolas,monospace;background:#f3f4f6;border-radius:6px;padding:1px 7px}
+ul{margin:6px 0 6px 20px;padding:0}
+.q{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0;background:#fff;display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.q .n{background:var(--brand2);color:#fff;border-radius:50%;min-width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700}
+.q .txt{flex:1;min-width:200px;white-space:pre-line}
+.q button{background:#fff;color:var(--brand);border:1px solid var(--brand);border-radius:8px;padding:4px 12px;cursor:pointer;font-size:.82rem}
+.q button:hover{background:var(--soft)}
+.q .a{display:none;width:100%;margin-left:40px;color:var(--ok);font-weight:700;white-space:pre-line}
+.q.open .a{display:block}
+h4.sub{margin:22px 0 4px;color:var(--brand2);font-size:1.05rem}
+.toolbar{display:flex;gap:10px;margin:10px 0;flex-wrap:wrap}
+.toolbar button{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:8px 16px;cursor:pointer;font-size:.9rem}
+.toolbar button.alt{background:#fff;color:var(--brand);border:1px solid var(--brand)}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{border:1px solid var(--line);padding:8px 12px;text-align:left}
+th{background:var(--soft)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:24px}
+#top{position:fixed;right:16px;bottom:16px;background:var(--brand);color:#fff;border:0;border-radius:50%;width:42px;height:42px;font-size:1.1rem;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+@media print{nav,#top,.toolbar,.q button{display:none}.q .a{display:block}header.hero{background:#2563eb;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>WEEK 4 – RATIO &amp; PROPORTION + ANALOGY</h1>
+  <p>Level 1 – Foundation Aptitude &amp; Reasoning</p>
+  <p><b>Aptitude:</b> Ratio &amp; Proportion &nbsp;|&nbsp; <b>Reasoning:</b> Analogy</p>
+  <span class="badge">Study notes • Practice • Final test • Quick revision</span>
+</header>
+
+<nav>
+  <a href="#partA">Part A: Ratio &amp; Proportion</a>
+  <a href="#practiceA">Practice A</a>
+  <a href="#partB">Part B: Analogy</a>
+  <a href="#practiceB">Practice B</a>
+  <a href="#test">Final Test</a>
+  <a href="#revision">Quick Revision</a>
+</nav>
+
+<main>
+
+<h2 class="part" id="partA">PART A: RATIO &amp; PROPORTION</h2>
+
+<section class="card">
+  <h3><span>1</span>What is a Ratio?</h3>
+  <p>A ratio is used to compare two quantities of the same type.</p>
+  <div class="ex"><b class="t">Example</b>
+    There are 10 boys and 5 girls.<br>
+    Ratio of boys to girls: <span class="math">10 : 5</span><br>
+    Simplify by dividing both by 5: <span class="math">2 : 1</span><br>
+    So, Boys : Girls = <b>2 : 1</b>
+  </div>
+  <div class="key"><b>Simple meaning:</b> Ratio tells us “How much of one quantity is compared with another?”</div>
+</section>
+
+<section class="card">
+  <h3><span>2</span>How to Write a Ratio</h3>
+  <p>Suppose a class has 20 boys and 30 girls.</p>
+  <p>Ratio of boys to girls: <span class="math">20 : 30</span> → divide by 10 → <span class="math">2 : 3</span></p>
+  <div class="ans">Boys : Girls = 2 : 3</div>
+</section>
+
+<section class="card">
+  <h3><span>3</span>Important Rule</h3>
+  <p>The <b>order</b> of a ratio is important.</p>
+  <p>If Boys : Girls = 2 : 3, then Girls : Boys = 3 : 2.</p>
+  <div class="key">Do not reverse the order accidentally.</div>
+</section>
+
+<section class="card">
+  <h3><span>4</span>Simplifying Ratios</h3>
+  <div class="ex"><b class="t">Example 1 – Simplest form of 24 : 36</b>
+    HCF of 24 and 36 = 12<br>
+    24 ÷ 12 = 2, &nbsp; 36 ÷ 12 = 3<br>
+    Therefore 24 : 36 = <b>2 : 3</b>
+  </div>
+  <div class="ex"><b class="t">Example 2 – Simplify 45 : 60</b>
+    HCF = 15<br>
+    45 ÷ 15 = 3, &nbsp; 60 ÷ 15 = 4<br>
+    Answer: <b>3 : 4</b>
+  </div>
+</section>
+
+<section class="card">
+  <h3><span>5</span>Ratio with Three Quantities</h3>
+  <p>Suppose <span class="math">A : B : C = 2 : 3 : 5</span></p>
+  <ul><li>A = 2 parts</li><li>B = 3 parts</li><li>C = 5 parts</li></ul>
+  <p>Total parts: 2 + 3 + 5 = <b>10</b></p>
+  <div class="key">This concept is very important for aptitude problems.</div>
+</section>
+
+<section class="card">
+  <h3><span>6</span>Finding Actual Values from a Ratio</h3>
+  <div class="ex"><b class="t">Example</b>
+    The ratio of boys to girls is 2 : 3. If there are 20 boys, how many girls are there?<br>
+    2 parts = 20 → 1 part = 20 ÷ 2 = 10<br>
+    Girls = 3 × 10
+  </div>
+  <div class="ans">Answer = 30 girls</div>
+</section>
+
+<section class="card">
+  <h3><span>7</span>Finding Total from a Ratio</h3>
+  <div class="ex"><b class="t">Example</b>
+    The ratio of boys and girls is 2 : 3. There are 40 students in total.<br>
+    Total ratio: 2 + 3 = 5<br>
+    One part: 40 ÷ 5 = 8<br>
+    Boys: 2 × 8 = 16 &nbsp;|&nbsp; Girls: 3 × 8 = 24
+  </div>
+  <div class="ans">Boys = 16, Girls = 24</div>
+</section>
+
+<section class="card">
+  <h3><span>8</span>Ratio of Ages</h3>
+  <div class="ex"><b class="t">Example</b>
+    The ratio of ages of A and B is 2 : 3. If A is 20 years old, find B's age.<br>
+    2 parts = 20 → 1 part = 10 → B = 3 × 10
+  </div>
+  <div class="ans">B = 30 years</div>
+</section>
+
+<section class="card">
+  <h3><span>9</span>Ratio of Money</h3>
+  <div class="ex"><b class="t">Example</b>
+    A and B have money in the ratio 3 : 5. If A has ₹600, how much does B have?<br>
+    3 parts = ₹600 → 1 part = ₹200 → B = 5 × ₹200
+  </div>
+  <div class="ans">B = ₹1,000</div>
+</section>
+
+<section class="card">
+  <h3><span>10</span>Ratio and Difference</h3>
+  <div class="ex"><b class="t">Example</b>
+    The ages of A and B are in the ratio 3 : 5. Their age difference is 10 years. Find their ages.<br>
+    Difference in ratio: 5 − 3 = 2 parts<br>
+    2 parts = 10 → 1 part = 5<br>
+    A = 3 × 5 = 15 years, B = 5 × 5 = 25 years
+  </div>
+  <div class="ans">A = 15 years, B = 25 years</div>
+</section>
+
+<section class="card">
+  <h3><span>11</span>What is Proportion?</h3>
+  <p>When two ratios are equal, they form a proportion.</p>
+  <div class="ex"><b class="t">Example</b>
+    <span class="math">2 : 3 = 4 : 6</span> because 2/3 = 4/6<br>
+    Therefore <span class="math">2 : 3 :: 4 : 6</span><br>
+    Read as: <i>2 is to 3 as 4 is to 6.</i>
+  </div>
+</section>
+
+<section class="card">
+  <h3><span>12</span>Cross Multiplication</h3>
+  <p>If <span class="math">a : b = c : d</span> then <span class="math">a × d = b × c</span>. This is called cross multiplication.</p>
+  <div class="ex"><b class="t">Example – Find x: 2 : 5 = x : 20</b>
+    2 × 20 = 5 × x → 40 = 5x → x = 40 ÷ 5
+  </div>
+  <div class="ans">x = 8</div>
+</section>
+
+<section class="card">
+  <h3><span>13</span>Direct Proportion</h3>
+  <p>When one quantity increases, the other also increases.</p>
+  <div class="ex"><b class="t">Example 1</b>
+    1 pen costs ₹10. Cost of 5 pens = 5 × 10 = ₹50<br>
+    More pens → More money. This is direct proportion.
+  </div>
+  <div class="ex"><b class="t">Example 2</b>
+    2 kg rice = ₹120. How much does 5 kg cost?<br>
+    2 : 5 = 120 : x → 2x = 600 → x = 300
+  </div>
+  <div class="ans">Answer = ₹300</div>
+</section>
+
+<section class="card">
+  <h3><span>14</span>Inverse Proportion</h3>
+  <p>When one quantity increases, the other decreases.</p>
+  <div class="ex"><b class="t">Example</b>
+    If 5 workers complete a job in 10 days, more workers will generally take fewer days, assuming equal work capacity.<br>
+    Workers increase → Days decrease. This is called inverse proportion.
+  </div>
+  <div class="key"><b>Basic formula:</b> Workers × Days = Constant</div>
+</section>
+
+<section class="card">
+  <h3><span>15</span>Important Ratio Shortcuts</h3>
+  <div class="grid">
+    <div class="ex"><b class="t">Shortcut 1</b>If A : B = 3 : 4<br>then A/B = 3/4</div>
+    <div class="ex"><b class="t">Shortcut 2</b>If total is given and A : B = 2 : 3 (total parts = 5):<br>A's share = 2/5 × Total<br>B's share = 3/5 × Total</div>
+    <div class="ex"><b class="t">Shortcut 3</b>If difference is given and A : B = 3 : 5 (difference in ratio = 2):<br>Actual difference ÷ 2 = value of one part.</div>
+  </div>
+</section>
+
+<h2 class="part" id="practiceA">RATIO &amp; PROPORTION PRACTICE</h2>
+<div class="toolbar">
+  <button onclick="toggleAll('practiceA',true)">Show all answers</button>
+  <button class="alt" onclick="toggleAll('practiceA',false)">Hide all answers</button>
+</div>
+<h4 class="sub">Basic Questions</h4>
+<div id="basicA"></div>
+<h4 class="sub">Intermediate Ratio Questions</h4>
+<div id="interA"></div>
+
+<h2 class="part" id="partB">PART B: ANALOGY</h2>
+
+<section class="card">
+  <h3><span>1</span>What is Analogy?</h3>
+  <p>Analogy means finding the relationship between two things and applying the same relationship to another pair.</p>
+  <div class="key"><b>Simple formula:</b> <span class="math">A : B :: C : ?</span><br>Read it as: A is related to B in the same way that C is related to ?</div>
+</section>
+
+<section class="card">
+  <h3><span>2</span>Very Simple Example</h3>
+  <div class="ex"><b class="t">Dog : Puppy :: Cat : ?</b>Dog → Puppy, Cat → Kitten</div>
+  <div class="ans">Answer: Kitten &nbsp;(Relationship: Animal → Young one)</div>
+</section>
+
+<section class="card">
+  <h3><span>3</span>Analogy Based on Profession</h3>
+  <div class="ex"><b class="t">Teacher : School :: Doctor : ?</b>Teacher works in a school. Doctor works in a hospital.</div>
+  <div class="ans">Answer: Hospital</div>
+</section>
+
+<section class="card">
+  <h3><span>4</span>Analogy Based on Object and Function</h3>
+  <div class="ex"><b class="t">Pen : Write :: Knife : ?</b>Pen is used to write. Knife is used to cut.</div>
+  <div class="ans">Answer: Cut</div>
+</section>
+
+<section class="card">
+  <h3><span>5</span>Analogy Based on Animal Sound</h3>
+  <div class="ex"><b class="t">Dog : Bark :: Cat : ?</b>Dog → Bark, Cat → Meow</div>
+  <div class="ans">Answer: Meow</div>
+</section>
+
+<section class="card">
+  <h3><span>6</span>Analogy Based on Young Ones</h3>
+  <div class="ex"><b class="t">Cow : Calf :: Dog : ?</b>Cow → Calf, Dog → Puppy</div>
+  <div class="ans">Answer: Puppy</div>
+</section>
+
+<section class="card">
+  <h3><span>7</span>Analogy Based on Opposites</h3>
+  <div class="ex"><b class="t">Hot : Cold :: Big : ?</b>Hot ↔ Cold, Big ↔ Small</div>
+  <div class="ans">Answer: Small</div>
+</section>
+
+<section class="card">
+  <h3><span>8</span>Analogy Based on Synonyms</h3>
+  <div class="ex"><b class="t">Happy : Glad :: Sad : ?</b>Happy = Glad, Sad = Unhappy</div>
+  <div class="ans">Answer: Unhappy</div>
+</section>
+
+<section class="card">
+  <h3><span>9</span>Analogy Based on Part and Whole</h3>
+  <div class="ex"><b class="t">Wheel : Car :: Page : ?</b>Wheel is a part of a car. Page is a part of a book.</div>
+  <div class="ans">Answer: Book</div>
+</section>
+
+<section class="card">
+  <h3><span>10</span>Analogy Based on Number Relationship</h3>
+  <div class="ex"><b class="t">2 : 4 :: 5 : ?</b>2 × 2 = 4, therefore 5 × 2 = 10</div>
+  <div class="ans">Answer: 10</div>
+</section>
+
+<section class="card">
+  <h3><span>11</span>Square Relationship</h3>
+  <div class="ex"><b class="t">3 : 9 :: 5 : ?</b>3² = 9, 5² = 25</div>
+  <div class="ans">Answer: 25</div>
+</section>
+
+<section class="card">
+  <h3><span>12</span>Cube Relationship</h3>
+  <div class="ex"><b class="t">2 : 8 :: 3 : ?</b>2³ = 8, 3³ = 27</div>
+  <div class="ans">Answer: 27</div>
+</section>
+
+<section class="card">
+  <h3><span>13</span>Addition Relationship</h3>
+  <div class="ex"><b class="t">5 : 8 :: 10 : ?</b>5 + 3 = 8, 10 + 3 = 13</div>
+  <div class="ans">Answer: 13</div>
+</section>
+
+<section class="card">
+  <h3><span>14</span>Multiplication Relationship</h3>
+  <div class="ex"><b class="t">4 : 20 :: 6 : ?</b>4 × 5 = 20, 6 × 5 = 30</div>
+  <div class="ans">Answer: 30</div>
+</section>
+
+<section class="card">
+  <h3><span>15</span>Alphabet Analogy</h3>
+  <p>Use: A = 1, B = 2, C = 3 … Z = 26</p>
+  <div class="ex"><b class="t">Example 1 – A : C :: D : ?</b>A → C is +2 letters. D → F.</div>
+  <div class="ans">Answer: F</div>
+  <div class="ex"><b class="t">Example 2 – B : E :: C : ?</b>B → E = +3, C → F = +3</div>
+  <div class="ans">Answer: F</div>
+</section>
+
+<section class="card">
+  <h3><span>16</span>How to Solve Analogy Questions</h3>
+  <div class="ex"><b class="t">Step 1</b>Look at the first pair, A : B.</div>
+  <div class="ex"><b class="t">Step 2</b>Find the relationship. Observe:
+    <ul>
+      <li>Is it opposite?</li><li>Is it synonym?</li><li>Is it part and whole?</li>
+      <li>Is it function?</li><li>Is it profession?</li><li>Is it young one?</li>
+      <li>Is it multiplication?</li><li>Is it addition?</li>
+      <li>Is it square/cube?</li><li>Is it alphabet position?</li>
+    </ul>
+  </div>
+  <div class="ex"><b class="t">Step 3</b>Apply the same relationship to the second pair.</div>
+  <div class="ex"><b class="t">Step 4</b>Choose the answer.</div>
+</section>
+
+<h2 class="part" id="practiceB">ANALOGY PRACTICE</h2>
+<div class="toolbar">
+  <button onclick="toggleAll('practiceB',true)">Show all answers</button>
+  <button class="alt" onclick="toggleAll('practiceB',false)">Hide all answers</button>
+</div>
+<h4 class="sub">Easy Level</h4>
+<div id="easyB"></div>
+<h4 class="sub">Number Analogy</h4>
+<div id="numB"></div>
+<h4 class="sub">Alphabet Analogy</h4>
+<div id="alphaB"></div>
+
+<h2 class="part" id="test">WEEK 4 FINAL TEST</h2>
+<div class="toolbar">
+  <button onclick="toggleAll('test',true)">Show all answers</button>
+  <button class="alt" onclick="toggleAll('test',false)">Hide all answers</button>
+  <button class="alt" onclick="window.print()">Print / Save as PDF</button>
+</div>
+<h4 class="sub">Section A – Ratio &amp; Proportion</h4>
+<div id="testA"></div>
+<h4 class="sub">Section B – Analogy</h4>
+<div id="testB"></div>
+
+<section class="card" id="answerTable" style="display:none">
+  <h3>FINAL TEST ANSWERS</h3>
+  <table id="ansTbl"><thead><tr><th>Q</th><th>Answer</th></tr></thead><tbody></tbody></table>
+</section>
+<div class="toolbar"><button class="alt" onclick="toggleTable()">Show / hide answer table</button></div>
+
+<h2 class="part" id="revision">WEEK 4 QUICK REVISION</h2>
+<p>We should remember these points before moving to Week 5.</p>
+<div class="grid">
+  <section class="card"><h3>Ratio</h3>Ratio = comparison of two quantities<br><span class="math">10 : 20 = 1 : 2</span></section>
+  <section class="card"><h3>Total Parts</h3>If A : B = 2 : 3, total parts = 2 + 3 = 5</section>
+  <section class="card"><h3>Share</h3>A's share = 2/5 × Total<br>B's share = 3/5 × Total</section>
+  <section class="card"><h3>Proportion</h3><span class="math">a : b = c : d</span><br>Cross multiplication: <span class="math">a × d = b × c</span></section>
+  <section class="card"><h3>Direct Proportion</h3>More → More<br>e.g. more books → more cost</section>
+  <section class="card"><h3>Inverse Proportion</h3>More → Less<br>e.g. more workers → fewer days</section>
+</div>
+<section class="card">
+  <h3>Analogy</h3>
+  <p><span class="math">A : B :: C : ?</span> — First find the relationship between A and B, then apply the same relationship to C.</p>
+  <b>Common relationships:</b>
+  <ol>
+    <li>Opposite</li><li>Synonym</li><li>Profession</li><li>Object and function</li><li>Animal and young one</li>
+    <li>Part and whole</li><li>Number multiplication</li><li>Square</li><li>Cube</li><li>Alphabet position</li>
+  </ol>
+</section>
+
+</main>
+
+<footer>Week 4 – Ratio &amp; Proportion + Analogy • Level 1 Foundation Aptitude &amp; Reasoning</footer>
+<button id="top" onclick="window.scrollTo({top:0})" aria-label="Back to top">↑</button>
+
+<script>
+const basicA=[
+["Simplify:\n12 : 18","2 : 3"],["Simplify:\n20 : 30","2 : 3"],["Find the ratio of 15 boys to 25 girls.","3 : 5"],
+["Divide ₹600 in the ratio 2 : 3.","₹240 and ₹360"],["Divide 100 in the ratio 2 : 3.","40 and 60"],
+["A : B = 3 : 5. If A = 18, find B.","30"],["A : B = 4 : 7. If B = 35, find A.","20"],
+["Find x:\n3 : 5 = x : 20","12"],["Find x:\n4 : 7 = 20 : x","35"],
+["Ages of A and B are in the ratio 2 : 3. If A is 16, find B.","24 years"]];
+const interA=[
+["The ratio of boys to girls is 3 : 2. There are 40 students. Find the number of boys.","24"],
+["The ratio of A and B is 5 : 7. Their total is 60. Find A and B.","A = 25\nB = 35"],
+["A and B have money in the ratio 4 : 5. If their total money is ₹1,800, find their individual amounts.","A = ₹800\nB = ₹1,000"],
+["The ages of two persons are in the ratio 4 : 7. Their difference is 15 years. Find their ages.","20 years and 35 years"],
+["If 5 books cost ₹250, find the cost of 8 books.","₹400"]];
+const easyB=[
+["Dog : Puppy :: Cat : ?","Kitten"],["Cow : Calf :: Goat : ?","Kid"],["Bird : Fly :: Fish : ?","Swim"],
+["Pen : Write :: Knife : ?","Cut"],["Teacher : School :: Doctor : ?","Hospital"],["Day : Night :: Hot : ?","Cold"],
+["Book : Read :: Food : ?","Eat"],["Eye : See :: Ear : ?","Hear"],["Wheel : Car :: Page : ?","Book"],["Hand : Glove :: Foot : ?","Shoe"]];
+const numB=[["2 : 4 :: 6 : ?","12"],["3 : 9 :: 7 : ?","49"],["2 : 8 :: 4 : ?","64"],["5 : 10 :: 8 : ?","16"],["4 : 20 :: 7 : ?","35"]];
+const alphaB=[["A : C :: D : ?","F"],["B : E :: F : ?","I"],["C : F :: H : ?","K"],["A : Z :: B : ?","Y"],["D : W :: E : ?","V"]];
+const testA=[
+["Simplify 18 : 24.","3 : 4"],["Divide 100 in the ratio 2 : 3.","40, 60"],["A : B = 3 : 5. If A = 21, find B.","35"],
+["Find x:\n3 : 4 = x : 20","15"],["The ratio of boys to girls is 2 : 3. If there are 40 students, how many girls are there?","24"],
+["Divide ₹1,000 in the ratio 3 : 2.","₹600, ₹400"],["A : B = 4 : 7. Their total is 55. Find A.","20"],
+["Two ages are in the ratio 3 : 5. Their difference is 12 years. Find the ages.","18 years, 30 years"],
+["If 4 pens cost ₹80, what is the cost of 10 pens?","₹200"],["If 2 kg rice costs ₹120, what is the cost of 5 kg?","₹300"]];
+const testB=[
+["Dog : Puppy :: Cat : ?","Kitten"],["Teacher : School :: Doctor : ?","Hospital"],["Pen : Write :: Knife : ?","Cut"],
+["Hot : Cold :: Big : ?","Small"],["Eye : See :: Ear : ?","Hear"],["2 : 4 :: 7 : ?","14"],["3 : 9 :: 8 : ?","64"],
+["A : C :: E : ?","G"],["B : E :: G : ?","J"],["Wheel : Car :: Page : ?","Book"]];
+
+function render(id,arr,start){
+  const el=document.getElementById(id);
+  arr.forEach((x,i)=>{
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML='<div class="n">'+(start+i)+'</div><div class="txt"></div><button type="button">Show answer</button><div class="a"></div>';
+    d.querySelector('.txt').textContent=x[0];
+    d.querySelector('.a').textContent='Answer: '+x[1];
+    const b=d.querySelector('button');
+    b.onclick=()=>{d.classList.toggle('open');b.textContent=d.classList.contains('open')?'Hide answer':'Show answer'};
+    el.appendChild(d);
+  });
+}
+render('basicA',basicA,1);render('interA',interA,11);
+render('easyB',easyB,1);render('numB',numB,11);render('alphaB',alphaB,16);
+render('testA',testA,1);render('testB',testB,11);
+
+function toggleAll(group,show){
+  const ids={practiceA:['basicA','interA'],practiceB:['easyB','numB','alphaB'],test:['testA','testB']}[group];
+  ids.forEach(id=>document.querySelectorAll('#'+id+' .q').forEach(q=>{
+    q.classList.toggle('open',show);
+    q.querySelector('button').textContent=show?'Hide answer':'Show answer';
+  }));
+}
+const tb=document.querySelector('#ansTbl tbody');
+[...testA,...testB].forEach((x,i)=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML='<td>'+(i+1)+'</td><td></td>';tr.children[1].textContent=x[1];tb.appendChild(tr);
+});
+function toggleTable(){const t=document.getElementById('answerTable');t.style.display=t.style.display==='none'?'block':'none'}
+</script>
+</body>
+</html>
